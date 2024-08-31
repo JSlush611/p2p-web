@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  frontend:
+    build: ./p2p-frontend
+    ports:
+      - "3000:80"  # Port mapping for React app
+
+  backend:
+    build: ./p2p-backend
+    ports:
+      - "5001:5000"  # Port mapping for Flask app
+    environment:
+      - FLASK_ENV=development

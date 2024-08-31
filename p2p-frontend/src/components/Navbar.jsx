@@ -19,6 +19,9 @@ function Navbar() {
           <Button color="inherit" component={Link} to="/build-graph">
             Build Graph
           </Button>
+          <Button color="inherit" component={Link} to="/suggestions">
+            Submit Suggestions
+          </Button>
         </Toolbar>
       </Container>
     </AppBar>

@@ -42,9 +42,6 @@ def plot_average_time_by_year(df):
     return save_plot_to_bytesio(fig)
 
 def plot_participation_by_age_group(df):
-    bins = [0, 18, 30, 40, 50, 60, 70, 80]
-    labels = ['<18', '18-29', '30-39', '40-49', '50-59', '60-69', '70+']
-    df['AgeGroup'] = pd.cut(df['Age'], bins=bins, labels=labels, right=False)
     fig, ax = plt.subplots()
     df['AgeGroup'].value_counts(sort=False).plot(kind='bar', ax=ax, color='green')
     ax.set_title('Participation by Age Group')
@@ -53,6 +50,7 @@ def plot_participation_by_age_group(df):
     ax.legend(['Participants'], loc='best')
     ax.grid(True)
     return save_plot_to_bytesio(fig)
+
 
 def plot_participation_by_region(df):
     top_regions = df['Region'].value_counts().head(10)
@@ -100,16 +98,13 @@ def plot_top_10_fastest_swimmers(df):
     return save_plot_to_bytesio(fig)
 
 def plot_average_time_by_age_group_and_year(df):
-    bins = [0, 18, 30, 40, 50, 60, 70, 80]
-    labels = ['<18', '18-29', '30-39', '40-49', '50-59', '60-69', '70+']
-    df['AgeGroup'] = pd.cut(df['Age'], bins=bins, labels=labels, right=False)
     avg_time_age_group = df.groupby(['Year', 'AgeGroup'])['Time (min)'].mean().unstack()
     fig, ax = plt.subplots(figsize=(10, 6))
     avg_time_age_group.plot(ax=ax)
     ax.set_title('Average Time by Age Group and Year')
     ax.set_xlabel('Year')
     ax.set_ylabel('Average Time (min)')
-    ax.legend(loc='best')
+    ax.legend(title='Age Group', loc='best')
     ax.grid(True)
     return save_plot_to_bytesio(fig)
 
@@ -181,6 +176,31 @@ def plot_user_time_percentile_by_year(df, name):
     ax.grid(True)
     return save_plot_to_bytesio(fig)
 
+def plot_average_time_by_gender_age_group_and_year(df, gender, age_group, name, overlay_avg_time=False, overlay_user_time=False):
+    filtered_df = df[(df['Gender'] == gender) & (df['AgeGroup'] == age_group)]
+    avg_time = filtered_df.groupby('Year')['Time (min)'].mean()
+
+    fig, ax = plt.subplots(figsize=(10, 6))
+    avg_time.plot(ax=ax, color='blue', label=f'Average Time ({gender}, {age_group})')
+
+    if overlay_avg_time:
+        overall_avg_time = df.groupby('Year')['Time (min)'].mean()
+        overall_avg_time.plot(ax=ax, color='red', linestyle='--', label='Overall Average Time')
+
+    if overlay_user_time and name:
+        user_data = df[df['Name'] == name]
+        if not user_data.empty:
+            user_time_by_year = user_data.groupby('Year')['Time (min)'].mean()
+            user_time_by_year.plot(ax=ax, color='green', marker='o', label=f"{name}'s Time")
+
+    ax.set_title(f'Average Time by Year with Overlays ({gender}, {age_group})')
+    ax.set_xlabel('Year')
+    ax.set_ylabel('Time (min)')
+    ax.legend(loc='best')
+    ax.grid(True)
+    
+    return save_plot_to_bytesio(fig)
+
 # Swimmer Analysis Functions (Non-Plot)
 def find_user_position_in_year(df, name, year):
     swimmer_data = df[(df['Name'] == name) & (df['Year'] == year)]
@@ -188,10 +208,19 @@ def find_user_position_in_year(df, name, year):
         return {"error": f"No data found for {name} in {year}"}, 404
 
     best_time = swimmer_data['Time (min)'].min()
-    overall_rank = (df[df['Year'] == year]['Time (min)'] < best_time).sum() + 1
+    overall_rank = int((df[df['Year'] == year]['Time (min)'] < best_time).sum() + 1)
+
+    age_group = str(swimmer_data['AgeGroup'].iloc[0])
+    gender = swimmer_data['Gender'].iloc[0]
+    total_participants_in_age_group_and_gender = int(len(df[(df['Year'] == year) & 
+                                                            (df['AgeGroup'] == age_group) & 
+                                                            (df['Gender'] == gender)]))
+
     return {
         "name": name,
-        "year": year,
+        "year": int(year),
         "position": overall_rank,
-        "total_participants": len(df[df['Year'] == year])
+        "total_participants": int(len(df[df['Year'] == year])),
+        "age_group": age_group,
+        "total_participants_in_age_group": total_participants_in_age_group_and_gender
     }

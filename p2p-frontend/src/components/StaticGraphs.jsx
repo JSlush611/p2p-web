@@ -54,10 +54,16 @@ function StaticGraphs() {
             title="Top 10 Fastest Swimmers"
           />
         </Grid>
-        <Grid item xs={12} sm={6} md={4}>
+        {/* <Grid item xs={12} sm={6} md={4}>
           <GraphContainer
             apiUrl={process.env.REACT_APP_API_URI + '/api/age-vs-time-distribution'}
             title="Age vs Time"
+          />
+        </Grid> */}
+        <Grid item xs={12} sm={6} md={4}>
+          <GraphContainer
+            apiUrl={process.env.REACT_APP_API_URI + '/api/participation-by-age-group'}
+            title="Age Group Participation"
           />
         </Grid>
       </Grid>

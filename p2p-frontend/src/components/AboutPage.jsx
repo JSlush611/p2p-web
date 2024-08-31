@@ -1,11 +1,59 @@
-import React from 'react';
-import { Container, Typography, Grid, Avatar, Box } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { Container, Typography, Grid, Avatar, Box, Paper } from '@mui/material';
 
 function AboutPage() {
+  const calculateTimeLeft = () => {
+    const nextRaceDate = new Date('August 2, 2025 07:20:00');
+    const now = new Date();
+    const difference = nextRaceDate - now;
+
+    let timeLeft = {};
+
+    if (difference > 0) {
+      timeLeft = {
+        days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+        hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+        minutes: Math.floor((difference / 1000 / 60) % 60),
+        seconds: Math.floor((difference / 1000) % 60),
+      };
+    }
+
+    return timeLeft;
+  };
+
+  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeLeft(calculateTimeLeft());
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  const timerComponents = Object.keys(timeLeft).map((interval) => {
+    if (!timeLeft[interval]) {
+      return null;
+    }
+
+    return (
+      <Box key={interval} m={1}>
+        <Paper elevation={3} sx={{ padding: '10px 20px', display: 'inline-block', minWidth: '80px' }}>
+          <Typography variant="h4" color="primary">
+            {timeLeft[interval]}
+          </Typography>
+          <Typography variant="caption">
+            {interval.charAt(0).toUpperCase() + interval.slice(1)}
+          </Typography>
+        </Paper>
+      </Box>
+    );
+  });
+
   return (
     <Container maxWidth="md" style={{ marginTop: '20px' }}>
       <Typography variant="h5" align="center" gutterBottom>
-        About Point to La Pointe Data Visualization Tool
+        About the Point to La Pointe Data Visualization Tool
       </Typography>
       <Grid container spacing={4} alignItems="center" justifyContent="center">
         <Grid item xs={12} sm={4}>
@@ -17,9 +65,9 @@ function AboutPage() {
         </Grid>
         <Grid item xs={12} sm={8}>
           <Typography variant="body1" align="center">
-            Hello! I'm Jonathan Schluesche, a long time swimmer and a dedicated computer science student. 
-            I have swam competivily for most of my life, and recently competed in Point to La Pointe. My 
-            experience as a swimmer, combined with my background in computer science, inspired me to create 
+            Hello! I'm Jonathan Schluesche, a lifelong swimmer and dedicated computer science student. 
+            I've competed in swimming for most of my life, and recently participated in the Point to La Pointe swim. 
+            My experience as a swimmer, combined with my background in computer science, inspired me to create 
             this data visualization tool. I hope it helps fellow swimmers and enthusiasts explore the rich 
             history and data of this event.
           </Typography>
@@ -32,6 +80,14 @@ function AboutPage() {
           rates, and much more. Additionally, you can build your own custom graphs to analyze specific 
           data points.
         </Typography>
+      </Box>
+      <Box mt={6} textAlign="center">
+        <Typography variant="h6" align="center" gutterBottom>
+          Time Left Until Next Year's Race
+        </Typography>
+        <Box display="flex" justifyContent="center" alignItems="center">
+          {timerComponents.length ? timerComponents : <span>Time's up!</span>}
+        </Box>
       </Box>
     </Container>
   );

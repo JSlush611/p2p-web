@@ -13,7 +13,8 @@ from app.graph_building.plot_utils import (
     plot_user_time_percentile_by_year,
     plot_average_time_by_age_group_and_year,
     plot_age_vs_time_distribution,
-    find_user_position_in_year
+    find_user_position_in_year,
+    plot_average_time_by_gender_age_group_and_year
 )
 
 api_bp = Blueprint('api', __name__)
@@ -66,7 +67,7 @@ def get_age_vs_time_distribution():
 def get_average_time_by_age_group_over_years():
     return plot_average_time_by_age_group_and_year(df)
 
-# User Specific Routes
+# User Specific Routes (Plots)
 @api_bp.route('/user-time-by-year', methods=['GET'])
 def get_user_time_over_years():
     name = request.args.get('name').lower()
@@ -81,6 +82,20 @@ def get_user_percentile_over_years():
         return {"error": "Name, gender parameters is required"}, 400
     return plot_user_time_percentile_by_year(df, name) 
 
+@api_bp.route('/user-average-time-gender-age-group-and-year', methods=['GET'])
+def get_average_time_by_gender_age_group_and_year():
+    gender = request.args.get('gender')
+    age_group = request.args.get('age_group')
+    name = request.args.get('name').lower()
+    overlay_avg_time = request.args.get('overlay', 'false').lower() == 'true'
+    overlay_user_time = request.args.get('overlay_user_time', 'false').lower() == 'true'  
+
+    if not gender or not age_group:
+        return {"error": "Gender and Age Group parameters are required"}, 400
+
+    return plot_average_time_by_gender_age_group_and_year(df, gender, age_group, name, overlay_avg_time, overlay_user_time)
+
+# User Specific Routes (Stats)
 @api_bp.route('/user-position-in-year', methods=['GET'])
 def get_user_position():
     name = request.args.get('name').lower()
