@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { TextField, Button, MenuItem, Card, CardContent, Typography, Box, Paper, FormControlLabel, Checkbox } from '@mui/material';
+import GraphContainer from './GraphContainer';
 
 const statsOptions = [
-  { value: 'time-by-year', label: 'Time Over Years', needYear: false },
-  { value: 'percentile-by-year', label: 'Percentile Over Years', needYear: false },
-  { value: 'position-in-year', label: 'Position in Specific Year', needYear: true },
-  { value: 'average-time-gender-age-group-and-year', label: 'Average Time by Gender/Age Group', needYear: false, needGender: true, needAgeGroup: true, canOverlay: true },
+  { value: 'time-by-year', label: 'Time Over Years', needYear: false, isGraph: true },
+  { value: 'percentile-by-year', label: 'Percentile Over Years', needYear: false, isGraph: true },
+  { value: 'position-in-year', label: 'Position in Specific Year', needYear: true, isGraph: false },
+  { value: 'average-time-gender-age-group-and-year', label: 'Average Time by Gender/Age Group', needYear: false, needGender: true, needAgeGroup: true, canOverlay: true, isGraph: true },
 ];
 
 const genderOptions = [
@@ -36,48 +37,41 @@ function GraphBuilder() {
   const [gender, setGender] = useState('');
   const [ageGroup, setAgeGroup] = useState('');
   const [overlay, setOverlay] = useState(false);
-  const [overlayUserTime, setOverlayUserTime] = useState(false); // Add state for the user time overlay
+  const [overlayUserTime, setOverlayUserTime] = useState(false);
+  const [apiUrl, setApiUrl] = useState(null);
+  const [resultType, setResultType] = useState('');
   const [result, setResult] = useState(null);
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [graphTitle, setGraphTitle] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
-    setError(null);
-    setResult(null);
   
     try {
       const selectedStat = statsOptions.find(option => option.value === stat);
-      let apiUrl = `${process.env.REACT_APP_API_URI}/api/user-${stat}`;
+      let constructedApiUrl = `${process.env.REACT_APP_API_URI}/api/user-${stat}`;
       
       if (selectedStat.needYear) {
-        apiUrl += `?name=${encodeURIComponent(name)}&year=${year}`;
+        constructedApiUrl += `?name=${encodeURIComponent(name)}&year=${year}`;
       } else if (selectedStat.needGender && selectedStat.needAgeGroup) {
-          apiUrl += `?gender=${gender}&age_group=${ageGroup}&overlay=${overlay}&overlay_user_time=${overlayUserTime}&name=${encodeURIComponent(name)}`;
+        constructedApiUrl += `?gender=${gender}&age_group=${ageGroup}&overlay=${overlay}&overlay_user_time=${overlayUserTime}&name=${encodeURIComponent(name)}`;
       } else {
-          apiUrl += `?name=${encodeURIComponent(name)}`;
+        constructedApiUrl += `?name=${encodeURIComponent(name)}`;
       }
-  
-      const response = await axios.get(apiUrl, { responseType: 'blob' });
-  
-      if (response.headers['content-type'].includes('image')) {
-        const imgUrl = URL.createObjectURL(response.data);
-        setResult({ type: 'image', content: imgUrl });
+
+      // Determine whether to render a graph or stat box based on the selected option
+      if (selectedStat.isGraph) {
+        setApiUrl(constructedApiUrl);
+        setResultType('graph');
+        setGraphTitle(`${name}'s ${selectedStat.label}`);  // Set the title only on submit
       } else {
-        const reader = new FileReader();
-        reader.onload = () => {
-          setResult({ type: 'text', content: JSON.parse(reader.result) });
-        };
-        reader.readAsText(response.data);
+        setResultType('stat');
+        const response = await axios.get(constructedApiUrl);
+        setResult(response.data);
       }
     } catch (err) {
       console.error(err);
-      setError('Error generating result. Please try again.');
-    } finally {
-      setLoading(false);
     }
-  };  
+  };
 
   const renderStatResult = (data) => (
     <Paper elevation={3} sx={{ padding: '20px', textAlign: 'center', backgroundColor: '#f5f5f5', borderRadius: '8px' }}>
@@ -183,16 +177,16 @@ function GraphBuilder() {
             </Button>
           </Box>
         </form>
-        {loading && <p>Loading...</p>}
-        {error && <p style={{ color: 'red' }}>{error}</p>}
-        {result && result.type === 'image' && (
-          <Box mt={2}>
-            <img src={result.content} alt="Custom Graph" style={{ width: '100%', borderRadius: '4px' }} />
+
+        {/* Conditionally render based on resultType */}
+        {resultType === 'graph' && apiUrl && (
+          <Box mt={4}>
+            <GraphContainer apiUrl={apiUrl} title={graphTitle} />
           </Box>
         )}
-        {result && result.type === 'text' && (
-          <Box mt={2}>
-            {renderStatResult(result.content)}
+        {resultType === 'stat' && result && (
+          <Box mt={4}>
+            {renderStatResult(result)}
           </Box>
         )}
       </CardContent>

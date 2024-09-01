@@ -79,7 +79,7 @@ def get_user_time_over_years():
 def get_user_percentile_over_years():
     name = request.args.get('name').lower()
     if not name:
-        return {"error": "Name, gender parameters is required"}, 400
+        return {"error": "Name, gender parameters are required"}, 400
     return plot_user_time_percentile_by_year(df, name) 
 
 @api_bp.route('/user-average-time-gender-age-group-and-year', methods=['GET'])
@@ -103,5 +103,3 @@ def get_user_position():
     if not name or not year:
         return {"error": "Name and year parameters are required"}, 400
     return find_user_position_in_year(df, name, int(year))
-
-
