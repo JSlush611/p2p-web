@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import emailjs from 'emailjs-com';
 import { TextField, Button, MenuItem, Box, Typography, Container } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import ReCAPTCHA from 'react-google-recaptcha';
 
 const requestTypes = [
   { value: 'feature', label: 'New Feature Request' },
@@ -14,6 +15,7 @@ function ContactForm() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
+  const [captchaToken, setCaptchaToken] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -22,6 +24,12 @@ function ContactForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    
+    if (!captchaToken) {
+      alert('Please complete the CAPTCHA');
+      return;
+    }
+  
     emailjs.sendForm(
       process.env.REACT_APP_EMAIL_JS_SERVICE_ID,
       process.env.REACT_APP_EMAIL_JS_TEMPLATE_ID,
@@ -31,13 +39,17 @@ function ContactForm() {
       (result) => {
         console.log(result.text);
         alert('Message sent successfully!');
-        navigate('/thank-you');  // Redirect to the "Thank You" page
+        navigate('/thank-you');  
       },
       (error) => {
         console.log(error.text);
         alert('Failed to send message.');
       }
     );
+  };
+
+  const onCaptchaChange = (token) => {
+    setCaptchaToken(token);
   };
 
   return (
@@ -91,6 +103,12 @@ function ContactForm() {
             onChange={(e) => setMessage(e.target.value)}
             name="message"
           />
+          <Box mt={2}>
+            <ReCAPTCHA
+              sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY}
+              onChange={onCaptchaChange}
+            />
+          </Box>
           <Box mt={2}>
             <Button type="submit" variant="contained" color="primary" fullWidth>
               Send Request
