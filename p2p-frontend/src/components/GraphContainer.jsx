@@ -11,17 +11,25 @@ function GraphContainer({ apiUrl, title, showDatasetToggle = true }) {
   const [dataset, setDataset] = useState('competitive'); 
 
   useEffect(() => {
-    axios.get(apiUrl)
-      .then(response => {
-        setData(response.data);
-        setLoading(false);
-      })
-      .catch(error => {
-        console.error('Error fetching the data:', error);
-        setError('Error fetching the data.');
-        setLoading(false); 
-      });
-  }, [apiUrl]);
+    const fetchData = () => {
+      // Construct the API URL with the dataset parameter
+      const separator = apiUrl.includes('?') ? '&' : '?';
+      const apiUrlWithDataset = `${apiUrl}${separator}dataset=${dataset}`;
+
+      axios.get(apiUrlWithDataset)
+        .then(response => {
+          setData(response.data);
+          setLoading(false);
+        })
+        .catch(error => {
+          console.error('Error fetching the data:', error);
+          setError('Error fetching the data.');
+          setLoading(false); 
+        });
+    };
+
+    fetchData();
+  }, [apiUrl, dataset]); // Add `dataset` to the dependency array
 
   const toggleViewMode = () => {
     setViewMode(viewMode === 'graph' ? 'table' : 'graph');
