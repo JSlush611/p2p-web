@@ -83,12 +83,31 @@ events = [
     {"event_id": 1086655, "event_course_id": 2500154, "race_date": '2024-08-03'},
 ]
 
+non_competitive_events = [
+    {"event_id": 116712, "event_course_id": 235787, "race_date": '2010-08-07'},
+    {"event_id": 591486, "event_course_id": 895187, "race_date": '2016-08-06'},
+    {"event_id": 575969, "event_course_id": 863681, "race_date": '2017-07-29'},
+    {"event_id": 667229, "event_course_id": 1051782, "race_date": '2018-08-04'},
+    {"event_id": 766892, "event_course_id": 1310568, "race_date": '2019-08-03'},
+    {"event_id": 976979, "event_course_id": 2088563, "race_date": '2021-08-07'},
+    {"event_id": 1026801, "event_course_id": 2278452, "race_date": '2022-08-06'},
+    {"event_id": 1057715, "event_course_id": 2388870, "race_date": '2023-08-05'},
+    {"event_id": 1086655, "event_course_id": 2497952, "race_date": '2024-08-03'},
+]
+
 all_results_df = pd.DataFrame()
+non_competitive_results_df = pd.DataFrame()
 
 for event in events:
     results = fetch_swim_results(event['event_id'], event['event_course_id'])
     event_df = parse_and_store_results(results, event['race_date'])
     all_results_df = pd.concat([all_results_df, event_df], ignore_index=True)
 
-all_results_df.to_csv('swim_results.csv', index=False)
-print("All data successfully saved to swim_results.csv")
+for event in non_competitive_events:
+    results = fetch_swim_results(event['event_id'], event['event_course_id'])
+    event_df = parse_and_store_results(results, event['race_date'])
+    non_competitive_results_df = pd.concat([non_competitive_results_df, event_df], ignore_index=True)
+
+all_results_df.to_csv('competitive-swim_results.csv', index=False)
+non_competitive_results_df.to_csv('non-competitive-swim_results.csv', index=False)
+print("All data successfully saved to CSV files")

@@ -30,6 +30,11 @@ const ageGroupOptions = [
   { value: '70+', label: '70+' },
 ];
 
+const datasetOptions = [
+  { value: 'competitive', label: 'Competitive' },
+  { value: 'non-competitive', label: 'Non-Competitive' },
+];
+
 function GraphBuilder() {
   const [name, setName] = useState('');
   const [stat, setStat] = useState('');
@@ -42,30 +47,43 @@ function GraphBuilder() {
   const [resultType, setResultType] = useState('');
   const [result, setResult] = useState(null);
   const [graphTitle, setGraphTitle] = useState('');
+  const [dataset, setDataset] = useState('competitive');
+
+  const buildApiUrl = (selectedStat) => {
+    let url = `${process.env.REACT_APP_API_URI}/api/user-${selectedStat.value}`;
+    const params = new URLSearchParams();
+
+    if (selectedStat.needYear) {
+      params.append('name', name);
+      params.append('year', year);
+    } else if (selectedStat.needGender && selectedStat.needAgeGroup) {
+      params.append('gender', gender);
+      params.append('age_group', ageGroup);
+      params.append('overlay', overlay);
+      params.append('overlay_user_time', overlayUserTime);
+      params.append('name', name);
+    } else {
+      params.append('name', name);
+    }
+
+    params.append('dataset', dataset);
+    return `${url}?${params.toString()}`;
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     try {
       const selectedStat = statsOptions.find(option => option.value === stat);
-      let constructedApiUrl = `${process.env.REACT_APP_API_URI}/api/user-${stat}`;
-      
-      if (selectedStat.needYear) {
-        constructedApiUrl += `?name=${encodeURIComponent(name)}&year=${year}`;
-      } else if (selectedStat.needGender && selectedStat.needAgeGroup) {
-        constructedApiUrl += `?gender=${gender}&age_group=${ageGroup}&overlay=${overlay}&overlay_user_time=${overlayUserTime}&name=${encodeURIComponent(name)}`;
-      } else {
-        constructedApiUrl += `?name=${encodeURIComponent(name)}`;
-      }
+      const constructedApiUrl = buildApiUrl(selectedStat);
 
-      // Determine whether to render a graph or stat box based on the selected option
       if (selectedStat.isGraph) {
         setApiUrl(constructedApiUrl);
         setResultType('graph');
-        setGraphTitle(`${name}'s ${selectedStat.label}`);  // Set the title only on submit
+        setGraphTitle(`${name}'s ${selectedStat.label}`);
       } else {
-        setResultType('stat');
         const response = await axios.get(constructedApiUrl);
+        setResultType('stat');
         setResult(response.data);
       }
     } catch (err) {
@@ -90,25 +108,10 @@ function GraphBuilder() {
   return (
     <Card>
       <CardContent>
-        <Typography variant="h5">Build Your Own Graph</Typography>
+        <Typography variant="h5">Build Your Own Graph or Stat</Typography>
         <form onSubmit={handleSubmit}>
-          <TextField
-            label="Name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-            fullWidth
-            margin="normal"
-          />
-          <TextField
-            select
-            label="Statistic"
-            value={stat}
-            onChange={(e) => setStat(e.target.value)}
-            required
-            fullWidth
-            margin="normal"
-          >
+          <TextField label="Name" value={name} onChange={(e) => setName(e.target.value)} required fullWidth margin="normal" />
+          <TextField select label="Statistic" value={stat} onChange={(e) => setStat(e.target.value)} required fullWidth margin="normal">
             {statsOptions.map((option) => (
               <MenuItem key={option.value} value={option.value}>
                 {option.label}
@@ -116,25 +119,10 @@ function GraphBuilder() {
             ))}
           </TextField>
           {statsOptions.find(option => option.value === stat)?.needYear && (
-            <TextField
-              label="Year"
-              type="number"
-              value={year}
-              onChange={(e) => setYear(e.target.value)}
-              fullWidth
-              margin="normal"
-            />
+            <TextField label="Year" type="number" value={year} onChange={(e) => setYear(e.target.value)} fullWidth margin="normal" />
           )}
           {statsOptions.find(option => option.value === stat)?.needGender && (
-            <TextField
-              select
-              label="Gender"
-              value={gender}
-              onChange={(e) => setGender(e.target.value)}
-              required
-              fullWidth
-              margin="normal"
-            >
+            <TextField select label="Gender" value={gender} onChange={(e) => setGender(e.target.value)} required fullWidth margin="normal">
               {genderOptions.map((option) => (
                 <MenuItem key={option.value} value={option.value}>
                   {option.label}
@@ -143,15 +131,7 @@ function GraphBuilder() {
             </TextField>
           )}
           {statsOptions.find(option => option.value === stat)?.needAgeGroup && (
-            <TextField
-              select
-              label="Age Group"
-              value={ageGroup}
-              onChange={(e) => setAgeGroup(e.target.value)}
-              required
-              fullWidth
-              margin="normal"
-            >
+            <TextField select label="Age Group" value={ageGroup} onChange={(e) => setAgeGroup(e.target.value)} required fullWidth margin="normal">
               {ageGroupOptions.map((option) => (
                 <MenuItem key={option.value} value={option.value}>
                   {option.label}
@@ -161,16 +141,17 @@ function GraphBuilder() {
           )}
           {statsOptions.find(option => option.value === stat)?.canOverlay && (
             <>
-              <FormControlLabel
-                control={<Checkbox checked={overlay} onChange={(e) => setOverlay(e.target.checked)} />}
-                label="Overlay with Overall Average Time"
-              />
-              <FormControlLabel
-                control={<Checkbox checked={overlayUserTime} onChange={(e) => setOverlayUserTime(e.target.checked)} />}
-                label="Overlay User's Time"
-              />
+              <FormControlLabel control={<Checkbox checked={overlay} onChange={(e) => setOverlay(e.target.checked)} />} label="Overlay with Overall Average Time" />
+              <FormControlLabel control={<Checkbox checked={overlayUserTime} onChange={(e) => setOverlayUserTime(e.target.checked)} />} label="Overlay User's Time" />
             </>
           )}
+          <TextField select label="Dataset" value={dataset} onChange={(e) => setDataset(e.target.value)} required fullWidth margin="normal">
+            {datasetOptions.map((option) => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </TextField>
           <Box mt={2}>
             <Button type="submit" variant="contained" color="primary" fullWidth>
               Generate Result
@@ -178,10 +159,9 @@ function GraphBuilder() {
           </Box>
         </form>
 
-        {/* Conditionally render based on resultType */}
         {resultType === 'graph' && apiUrl && (
           <Box mt={4}>
-            <GraphContainer apiUrl={apiUrl} title={graphTitle} />
+            <GraphContainer apiUrl={apiUrl} title={graphTitle} showDatasetToggle={false} />
           </Box>
         )}
         {resultType === 'stat' && result && (
