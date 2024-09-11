@@ -40,11 +40,11 @@ jobs:
           password: '${{ steps.auth.outputs.auth_token }}'
           registry: '${{ env.REGION }}-docker.pkg.dev'
 
-      # Build and Push Frontend Container
+      # Build and Push Frontend Container (p2p-frontend)
       - name: 'Build and Push Frontend Container'
         run: |-
           DOCKER_TAG="gcr.io/${{ env.PROJECT_ID }}/${{ env.FRONTEND_SERVICE }}:${{ github.sha }}"
-          docker buildx build --platform linux/amd64 -t "${DOCKER_TAG}" --push .
+          docker buildx build --platform linux/amd64 -t "${DOCKER_TAG}" --file ./p2p-frontend/Dockerfile --push ./p2p-frontend
 
       # Deploy Frontend to Cloud Run
       - id: deploy_frontend
@@ -55,11 +55,11 @@ jobs:
           region: '${{ env.REGION }}'
           image: 'gcr.io/${{ env.PROJECT_ID }}/${{ env.FRONTEND_SERVICE }}:${{ github.sha }}'
 
-      # Build and Push Backend Container
+      # Build and Push Backend Container (p2p-backend)
       - name: 'Build and Push Backend Container'
         run: |-
           DOCKER_TAG="gcr.io/${{ env.PROJECT_ID }}/${{ env.BACKEND_SERVICE }}:${{ github.sha }}"
-          docker buildx build --platform linux/amd64 -t "${DOCKER_TAG}" --push .
+          docker buildx build --platform linux/amd64 -t "${DOCKER_TAG}" --file ./p2p-backend/Dockerfile --push ./p2p-backend
 
       # Deploy Backend to Cloud Run
       - id: deploy_backend
