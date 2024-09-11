@@ -13,7 +13,7 @@ env:
   REGION: 'us-central1'
   FRONTEND_SERVICE: 'p2p-web-frontend'
   BACKEND_SERVICE: 'p2p-web-backend'
-  WORKLOAD_IDENTITY_PROVIDER: 'projects/426650378682/locations/global/workloadIdentityPools/github'
+  WORKLOAD_IDENTITY_PROVIDER: 'projects/426650378682/locations/global/workloadIdentityPools/github/providers/my-repo'
 
 jobs:
   deploy:
