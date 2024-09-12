@@ -44,7 +44,11 @@ jobs:
       - name: 'Build and Push Frontend Container'
         run: |-
           DOCKER_TAG="gcr.io/${{ env.PROJECT_ID }}/${{ env.FRONTEND_SERVICE }}:${{ github.sha }}"
-          docker buildx build --platform linux/amd64 -t "${DOCKER_TAG}" --file ./p2p-frontend/Dockerfile --push ./p2p-frontend
+          docker buildx build --platform linux/amd64 \
+            --build-arg SECRET_KEY=${{ secrets.SECRET_KEY }} \
+            --build-arg API_URL=${{ secrets.API_URL }} \
+            -t "${DOCKER_TAG}" \
+            --file ./p2p-frontend/Dockerfile --push ./p2p-frontend
 
       # Deploy Frontend to Cloud Run
       - id: deploy_frontend
@@ -70,10 +74,4 @@ jobs:
           region: '${{ env.REGION }}'
           image: 'gcr.io/${{ env.PROJECT_ID }}/${{ env.BACKEND_SERVICE }}:${{ github.sha }}'
 
-      - name: 'Show Frontend Output'
-        run: |
-          echo "Frontend URL: \${{ steps.deploy_frontend.outputs.url }}"
-
-      - name: 'Show Backend Output'
-        run: |
-          echo "Backend URL: \${{ steps.deploy_backend.outputs.url }}"
+      - name: '

@@ -4,7 +4,13 @@ FROM node:18-alpine as build
 # Set working directory
 WORKDIR /app
 
-COPY .env ./
+# Accept build arguments for secrets
+ARG SECRET_KEY
+ARG API_URL
+
+# Pass the secrets as environment variables
+ENV REACT_APP_SECRET_KEY=$SECRET_KEY
+ENV REACT_APP_API_URL=$API_URL
 
 # Install dependencies
 COPY package.json ./
