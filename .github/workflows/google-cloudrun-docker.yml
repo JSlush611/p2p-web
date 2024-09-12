@@ -44,7 +44,7 @@ jobs:
       # Build and Push Frontend Container
       - name: 'Build and Push Frontend Container'
         run: |-
-          DOCKER_TAG="${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.FRONTEND_SERVICE }}:${{ github.sha }}"
+          DOCKER_TAG="${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.FRONTEND_SERVICE }}/frontend:${{ github.sha }}"
           docker buildx build --platform linux/amd64 \
             --build-arg REACT_APP_API_URI=${{ secrets.REACT_APP_API_URI }} \
             --build-arg REACT_APP_EMAIL_JS_SERVICE_ID=${{ secrets.REACT_APP_EMAIL_JS_SERVICE_ID }} \
@@ -55,7 +55,7 @@ jobs:
             --build-arg GENERATE_SOURCEMAP=${{ secrets.GENERATE_SOURCEMAP }} \
             -t "${DOCKER_TAG}" \
             --file ./p2p-frontend/Dockerfile --push ./p2p-frontend
-
+            
       # Deploy Frontend to Cloud Run
       - id: deploy_frontend
         name: 'Deploy Frontend to Cloud Run'
@@ -65,11 +65,13 @@ jobs:
           region: '${{ env.REGION }}'
           image: '${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.FRONTEND_SERVICE }}:${{ github.sha }}'
 
-      # Build and Push Backend Container (p2p-backend)
-      - name: 'Build and Push Backend Container'
-        run: |-
-          DOCKER_TAG="${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.BACKEND_SERVICE }}:${{ github.sha }}"
-          docker buildx build --platform linux/amd64 -t "${DOCKER_TAG}" --file ./p2p-backend/Dockerfile --push ./p2p-backend
+    # Build and Push Backend Container
+    - name: 'Build and Push Backend Container'
+      run: |-
+        DOCKER_TAG="${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.BACKEND_SERVICE }}/backend:${{ github.sha }}"
+        docker buildx build --platform linux/amd64 \
+          -t "${DOCKER_TAG}" \
+          --file ./p2p-backend/Dockerfile --push ./p2p-backend
 
       # Deploy Backend to Cloud Run
       - id: deploy_backend
