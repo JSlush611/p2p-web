@@ -33,18 +33,18 @@ jobs:
         with:
           workload_identity_provider: '${{ env.WORKLOAD_IDENTITY_PROVIDER }}'
 
-      # Docker Auth (to gcr.io, not Artifact Registry)
+      # Docker Auth (to Artifact Registry - pkg.dev)
       - name: 'Docker Auth'
         uses: 'docker/login-action@v3'
         with:
           username: 'oauth2accesstoken'
           password: '${{ steps.auth.outputs.auth_token }}'
-          registry: 'gcr.io'
+          registry: '${{ env.REGION }}-docker.pkg.dev'
 
       # Build and Push Frontend Container (p2p-frontend)
       - name: 'Build and Push Frontend Container'
         run: |-
-          DOCKER_TAG="gcr.io/${{ env.PROJECT_ID }}/${{ env.FRONTEND_SERVICE }}:${{ github.sha }}"
+          DOCKER_TAG="${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.FRONTEND_SERVICE }}:${{ github.sha }}"
           docker buildx build --platform linux/amd64 \
             --build-arg REACT_APP_API_URI=${{ secrets.REACT_APP_API_URI }} \
             --build-arg REACT_APP_EMAIL_JS_SERVICE_ID=${{ secrets.REACT_APP_EMAIL_JS_SERVICE_ID }} \
@@ -63,12 +63,12 @@ jobs:
         with:
           service: '${{ env.FRONTEND_SERVICE }}'
           region: '${{ env.REGION }}'
-          image: 'gcr.io/${{ env.PROJECT_ID }}/${{ env.FRONTEND_SERVICE }}:${{ github.sha }}'
+          image: '${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.FRONTEND_SERVICE }}:${{ github.sha }}'
 
       # Build and Push Backend Container (p2p-backend)
       - name: 'Build and Push Backend Container'
         run: |-
-          DOCKER_TAG="gcr.io/${{ env.PROJECT_ID }}/${{ env.BACKEND_SERVICE }}:${{ github.sha }}"
+          DOCKER_TAG="${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.BACKEND_SERVICE }}:${{ github.sha }}"
           docker buildx build --platform linux/amd64 -t "${DOCKER_TAG}" --file ./p2p-backend/Dockerfile --push ./p2p-backend
 
       # Deploy Backend to Cloud Run
@@ -78,7 +78,7 @@ jobs:
         with:
           service: '${{ env.BACKEND_SERVICE }}'
           region: '${{ env.REGION }}'
-          image: 'gcr.io/${{ env.PROJECT_ID }}/${{ env.BACKEND_SERVICE }}:${{ github.sha }}'
+          image: '${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.BACKEND_SERVICE }}:${{ github.sha }}'
 
       - name: 'Show Frontend Output'
         run: |
