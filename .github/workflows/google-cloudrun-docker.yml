@@ -66,19 +66,16 @@ jobs:
           image: '${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.FRONTEND_SERVICE }}/frontend:${{ github.sha }}'
           project_id: '${{ env.PROJECT_ID }}'  # Add project ID to deployment
 
-      - id: 'auth-backend'
-        name: 'Re-authenticate to Google Cloud'
-        uses: 'google-github-actions/auth@v2'
-        with:
-          workload_identity_provider: '${{ env.WORKLOAD_IDENTITY_PROVIDER }}'
-
-      # Build and Push Backend Container
+      # Replace the Build and Push Backend Container step with the following
       - name: 'Build and Push Backend Container'
-        run: |-
-          DOCKER_TAG="${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.BACKEND_SERVICE }}/backend:${{ github.sha }}"
-          docker buildx build --platform linux/amd64 \
-            -t "${DOCKER_TAG}" \
-            --file ./p2p-backend/Dockerfile --push ./p2p-backend
+        uses: 'docker/build-push-action@v5'
+        with:
+          context: ./p2p-backend
+          file: ./p2p-backend/Dockerfile
+          platforms: linux/amd64
+          push: true
+          tags: |
+            ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.BACKEND_SERVICE }}/backend:${{ github.sha }}
 
       # Deploy Backend to Cloud Run
       - id: deploy_backend
