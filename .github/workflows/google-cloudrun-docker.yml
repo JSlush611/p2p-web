@@ -45,8 +45,13 @@ jobs:
         run: |-
           DOCKER_TAG="gcr.io/${{ env.PROJECT_ID }}/${{ env.FRONTEND_SERVICE }}:${{ github.sha }}"
           docker buildx build --platform linux/amd64 \
-            --build-arg SECRET_KEY=${{ secrets.SECRET_KEY }} \
-            --build-arg API_URL=${{ secrets.API_URL }} \
+            --build-arg REACT_APP_API_URI=${{ secrets.REACT_APP_API_URI }} \
+            --build-arg REACT_APP_EMAIL_JS_SERVICE_ID=${{ secrets.REACT_APP_EMAIL_JS_SERVICE_ID }} \
+            --build-arg REACT_APP_EMAIL_JS_TEMPLATE_ID=${{ secrets.REACT_APP_EMAIL_JS_TEMPLATE_ID }} \
+            --build-arg REACT_APP_EMAILJS_PUBLIC_KEY=${{ secrets.REACT_APP_EMAILJS_PUBLIC_KEY }} \
+            --build-arg REACT_APP_RECAPTCHA_SITE_KEY=${{ secrets.REACT_APP_RECAPTCHA_SITE_KEY }} \
+            --build-arg REACT_APP_RECAPTCHA_SECRET_KEY=${{ secrets.REACT_APP_RECAPTCHA_SECRET_KEY }} \
+            --build-arg GENERATE_SOURCEMAP=${{ secrets.GENERATE_SOURCEMAP }} \
             -t "${DOCKER_TAG}" \
             --file ./p2p-frontend/Dockerfile --push ./p2p-frontend
 
@@ -74,4 +79,10 @@ jobs:
           region: '${{ env.REGION }}'
           image: 'gcr.io/${{ env.PROJECT_ID }}/${{ env.BACKEND_SERVICE }}:${{ github.sha }}'
 
-      - name: '
+      - name: 'Show Frontend Output'
+        run: |
+          echo "Frontend URL: \${{ steps.deploy_frontend.outputs.url }}"
+
+      - name: 'Show Backend Output'
+        run: |
+          echo "Backend URL: \${{ steps.deploy_backend.outputs.url }}"
