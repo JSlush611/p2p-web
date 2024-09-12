@@ -33,6 +33,7 @@ jobs:
         with:
           workload_identity_provider: '${{ env.WORKLOAD_IDENTITY_PROVIDER }}'
 
+      # Docker Auth (to gcr.io, not Artifact Registry)
       - name: 'Docker Auth'
         uses: 'docker/login-action@v3'
         with:
