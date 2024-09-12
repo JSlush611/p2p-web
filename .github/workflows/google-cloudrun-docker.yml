@@ -1,6 +1,3 @@
-# This workflow builds and pushes Docker containers to Google Artifact Registry
-# and deploys them on Cloud Run when a commit is pushed to the "main" branch.
-
 name: 'Build and Deploy Frontend and Backend to Cloud Run'
 
 on:
@@ -22,6 +19,7 @@ jobs:
     permissions:
       contents: 'read'
       id-token: 'write'
+      packages: 'write'  # Added packages permission
 
     steps:
       - name: 'Checkout'
@@ -43,18 +41,22 @@ jobs:
 
       # Build and Push Frontend Container
       - name: 'Build and Push Frontend Container'
-        run: |-
-          DOCKER_TAG="${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.FRONTEND_SERVICE }}/frontend:${{ github.sha }}"
-          docker buildx build --platform linux/amd64 \
-            --build-arg REACT_APP_API_URI=${{ secrets.REACT_APP_API_URI }} \
-            --build-arg REACT_APP_EMAIL_JS_SERVICE_ID=${{ secrets.REACT_APP_EMAIL_JS_SERVICE_ID }} \
-            --build-arg REACT_APP_EMAIL_JS_TEMPLATE_ID=${{ secrets.REACT_APP_EMAIL_JS_TEMPLATE_ID }} \
-            --build-arg REACT_APP_EMAILJS_PUBLIC_KEY=${{ secrets.REACT_APP_EMAILJS_PUBLIC_KEY }} \
-            --build-arg REACT_APP_RECAPTCHA_SITE_KEY=${{ secrets.REACT_APP_RECAPTCHA_SITE_KEY }} \
-            --build-arg REACT_APP_RECAPTCHA_SECRET_KEY=${{ secrets.REACT_APP_RECAPTCHA_SECRET_KEY }} \
-            --build-arg GENERATE_SOURCEMAP=${{ secrets.GENERATE_SOURCEMAP }} \
-            -t "${DOCKER_TAG}" \
-            --file ./p2p-frontend/Dockerfile --push ./p2p-frontend
+        uses: 'docker/build-push-action@v5'
+        with:
+          context: ./p2p-frontend
+          file: ./p2p-frontend/Dockerfile
+          platforms: linux/amd64
+          push: true
+          build-args: |
+            REACT_APP_API_URI=${{ secrets.REACT_APP_API_URI }}
+            REACT_APP_EMAIL_JS_SERVICE_ID=${{ secrets.REACT_APP_EMAIL_JS_SERVICE_ID }}
+            REACT_APP_EMAIL_JS_TEMPLATE_ID=${{ secrets.REACT_APP_EMAIL_JS_TEMPLATE_ID }}
+            REACT_APP_EMAILJS_PUBLIC_KEY=${{ secrets.REACT_APP_EMAILJS_PUBLIC_KEY }}
+            REACT_APP_RECAPTCHA_SITE_KEY=${{ secrets.REACT_APP_RECAPTCHA_SITE_KEY }}
+            REACT_APP_RECAPTCHA_SECRET_KEY=${{ secrets.REACT_APP_RECAPTCHA_SECRET_KEY }}
+            GENERATE_SOURCEMAP=${{ secrets.GENERATE_SOURCEMAP }}
+          tags: |
+            ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.FRONTEND_SERVICE }}/frontend:${{ github.sha }}
 
       # Deploy Frontend to Cloud Run
       - id: deploy_frontend
@@ -64,9 +66,9 @@ jobs:
           service: '${{ env.FRONTEND_SERVICE }}'
           region: '${{ env.REGION }}'
           image: '${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.FRONTEND_SERVICE }}/frontend:${{ github.sha }}'
-          project_id: '${{ env.PROJECT_ID }}'  # Add project ID to deployment
+          project_id: '${{ env.PROJECT_ID }}'
 
-      # Replace the Build and Push Backend Container step with the following
+      # Build and Push Backend Container
       - name: 'Build and Push Backend Container'
         uses: 'docker/build-push-action@v5'
         with:
@@ -85,12 +87,12 @@ jobs:
           service: '${{ env.BACKEND_SERVICE }}'
           region: '${{ env.REGION }}'
           image: '${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.BACKEND_SERVICE }}/backend:${{ github.sha }}'
-          project_id: '${{ env.PROJECT_ID }}'  # Add project ID to deployment
+          project_id: '${{ env.PROJECT_ID }}'
 
       - name: 'Show Frontend Output'
         run: |
-          echo "Frontend URL: \${{ steps.deploy_frontend.outputs.url }}"
+          echo "Frontend URL: ${{ steps.deploy_frontend.outputs.url }}"
 
       - name: 'Show Backend Output'
         run: |
-          echo "Backend URL: \${{ steps.deploy_backend.outputs.url }}"
+          echo "Backend URL: ${{ steps.deploy_backend.outputs.url }}"
