@@ -33,8 +33,8 @@ jobs:
         with:
           workload_identity_provider: '${{ env.WORKLOAD_IDENTITY_PROVIDER }}'
 
-      # Docker Auth (to Artifact Registry - pkg.dev for Frontend)
-      - name: 'Docker Auth Frontend'
+      # Docker Auth (to Artifact Registry - pkg.dev)
+      - name: 'Docker Auth'
         uses: 'docker/login-action@v3'
         with:
           username: 'oauth2accesstoken'
@@ -64,15 +64,7 @@ jobs:
           service: '${{ env.FRONTEND_SERVICE }}'
           region: '${{ env.REGION }}'
           image: '${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.FRONTEND_SERVICE }}/frontend:${{ github.sha }}'
-          project_id: '${{ env.PROJECT_ID }}'
-
-      # Docker Auth (to Artifact Registry - pkg.dev for Backend)
-      - name: 'Docker Auth Backend'
-        uses: 'docker/login-action@v3'
-        with:
-          username: 'oauth2accesstoken'
-          password: '${{ steps.auth.outputs.auth_token }}'
-          registry: '${{ env.REGION }}-docker.pkg.dev'
+          project_id: '${{ env.PROJECT_ID }}'  # Add project ID to deployment
 
       # Build and Push Backend Container
       - name: 'Build and Push Backend Container'
@@ -90,7 +82,7 @@ jobs:
           service: '${{ env.BACKEND_SERVICE }}'
           region: '${{ env.REGION }}'
           image: '${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.BACKEND_SERVICE }}/backend:${{ github.sha }}'
-          project_id: '${{ env.PROJECT_ID }}'
+          project_id: '${{ env.PROJECT_ID }}'  # Add project ID to deployment
 
       - name: 'Show Frontend Output'
         run: |
