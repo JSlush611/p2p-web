@@ -64,6 +64,7 @@ jobs:
           service: '${{ env.FRONTEND_SERVICE }}'
           region: '${{ env.REGION }}'
           image: '${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.FRONTEND_SERVICE }}/frontend:${{ github.sha }}'
+          project_id: '${{ env.PROJECT_ID }}'  # Add project ID to deployment
 
       # Build and Push Backend Container
       - name: 'Build and Push Backend Container'
@@ -81,6 +82,7 @@ jobs:
           service: '${{ env.BACKEND_SERVICE }}'
           region: '${{ env.REGION }}'
           image: '${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.BACKEND_SERVICE }}/backend:${{ github.sha }}'
+          project_id: '${{ env.PROJECT_ID }}'  # Add project ID to deployment
 
       - name: 'Show Frontend Output'
         run: |
