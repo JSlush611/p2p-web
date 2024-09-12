@@ -66,7 +66,6 @@ jobs:
           image: '${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.FRONTEND_SERVICE }}/frontend:${{ github.sha }}'
           project_id: '${{ env.PROJECT_ID }}'  # Add project ID to deployment
 
-      # Reauth
       - id: 'auth-backend'
         name: 'Re-authenticate to Google Cloud'
         uses: 'google-github-actions/auth@v2'
