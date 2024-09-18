@@ -33,6 +33,7 @@ jobs:
         with:
           workload_identity_provider: '${{ env.WORKLOAD_IDENTITY_PROVIDER }}'
           service_account: 'your-service-account@${{ env.PROJECT_ID }}.iam.gserviceaccount.com'
+          access_token_scopes: 'https://www.googleapis.com/auth/cloud-platform'
 
       # Docker Auth (to Artifact Registry - pkg.dev)
       - name: 'Docker Auth'
