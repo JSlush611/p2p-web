@@ -32,13 +32,14 @@ jobs:
         uses: 'google-github-actions/auth@v2'
         with:
           workload_identity_provider: '${{ env.WORKLOAD_IDENTITY_PROVIDER }}'
+          service_account: 'your-service-account@${{ env.PROJECT_ID }}.iam.gserviceaccount.com'
 
       # Docker Auth (to Artifact Registry - pkg.dev)
       - name: 'Docker Auth'
         uses: 'docker/login-action@v3'
         with:
           username: 'oauth2accesstoken'
-          password: '${{ steps.auth.outputs.auth_token }}'
+          password: '${{ steps.auth.outputs.access_token }}'
           registry: '${{ env.REGION }}-docker.pkg.dev'
 
       # Build and Push Frontend Container
@@ -64,18 +65,15 @@ jobs:
           service: '${{ env.FRONTEND_SERVICE }}'
           region: '${{ env.REGION }}'
           image: '${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.FRONTEND_SERVICE }}/frontend:${{ github.sha }}'
-          project_id: '${{ env.PROJECT_ID }}'  # Add project ID to deployment
+          project_id: '${{ env.PROJECT_ID }}'
 
-      # Replace the Build and Push Backend Container step with the following
+      # Build and Push Backend Container
       - name: 'Build and Push Backend Container'
-        uses: 'docker/build-push-action@v5'
-        with:
-          context: ./p2p-backend
-          file: ./p2p-backend/Dockerfile
-          platforms: linux/amd64
-          push: true
-          tags: |
-            ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.BACKEND_SERVICE }}/backend:${{ github.sha }}
+        run: |-
+          DOCKER_TAG="${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.BACKEND_SERVICE }}/backend:${{ github.sha }}"
+          docker buildx build --platform linux/amd64 \
+            -t "${DOCKER_TAG}" \
+            --file ./p2p-backend/Dockerfile --push ./p2p-backend
 
       # Deploy Backend to Cloud Run
       - id: deploy_backend
@@ -85,7 +83,7 @@ jobs:
           service: '${{ env.BACKEND_SERVICE }}'
           region: '${{ env.REGION }}'
           image: '${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.BACKEND_SERVICE }}/backend:${{ github.sha }}'
-          project_id: '${{ env.PROJECT_ID }}'  # Add project ID to deployment
+          project_id: '${{ env.PROJECT_ID }}'
 
       - name: 'Show Frontend Output'
         run: |
