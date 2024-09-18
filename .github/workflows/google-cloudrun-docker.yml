@@ -30,19 +30,14 @@ jobs:
         with:
           workload_identity_provider: '${{ env.WORKLOAD_IDENTITY_PROVIDER }}'
           service_account: 'your-service-account@${{ env.PROJECT_ID }}.iam.gserviceaccount.com'
+          access_token_scopes: 'https://www.googleapis.com/auth/cloud-platform'
 
-      # Set up Cloud SDK
-      - name: 'Set up Cloud SDK'
-        uses: 'google-github-actions/setup-gcloud@v1'
+      - name: 'Docker Auth'
+        uses: 'docker/login-action@v2'
         with:
-          project_id: '${{ env.PROJECT_ID }}'
-          service_account: 'your-service-account@${{ env.PROJECT_ID }}.iam.gserviceaccount.com'
-          workload_identity_provider: '${{ env.WORKLOAD_IDENTITY_PROVIDER }}'
-
-      # Configure Docker to use gcloud as a credential helper
-      - name: 'Configure Docker for Artifact Registry'
-        run: |
-          gcloud auth configure-docker ${REGION}-docker.pkg.dev --quiet
+          username: 'oauth2accesstoken'
+          password: '${{ steps.auth.outputs.access_token }}'
+          registry: '${{ env.REGION }}-docker.pkg.dev'
 
       # Build and Push Frontend Container
       - name: 'Build and Push Frontend Container'
@@ -71,11 +66,13 @@ jobs:
 
       # Build and Push Backend Container
       - name: 'Build and Push Backend Container'
-        run: |-
-          DOCKER_TAG="${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.BACKEND_SERVICE }}/backend:${{ github.sha }}"
-          docker buildx build --platform linux/amd64 \
-            -t "${DOCKER_TAG}" \
-            --file ./p2p-backend/Dockerfile --push ./p2p-backend
+        uses: 'docker/build-push-action@v5'
+        with:
+          context: ./p2p-backend
+          file: ./p2p-backend/Dockerfile
+          push: true
+          tags: |
+            ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.BACKEND_SERVICE }}/backend:${{ github.sha }}
 
       # Deploy Backend to Cloud Run
       - id: deploy_backend
