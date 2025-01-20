@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Typography, Grid, Avatar, Box, Paper } from '@mui/material';
+import { Container, Typography, Grid, Avatar, Box, Paper, Link } from '@mui/material';
 
 function AboutPage() {
   const calculateTimeLeft = () => {
@@ -89,6 +89,25 @@ function AboutPage() {
           {timerComponents.length ? timerComponents : <span>Time's up!</span>}
         </Box>
       </Box>
+
+      {/* Footer section */}
+      <Box mt={6} textAlign="center" component="footer">
+        <Typography variant="body2">
+          Check out my profiles and this project's source code:
+        </Typography>
+        <Box mt={2} display="flex" justifyContent="center" gap={3}>
+          <Link href="https://github.com/JSlush611" target="_blank" rel="noopener" underline="hover">
+            GitHub
+          </Link>
+          <Link href="https://www.linkedin.com/in/jonathan-schluesche-7a1a94252/" target="_blank" rel="noopener" underline="hover">
+            LinkedIn
+          </Link>
+          <Link href="https://github.com/JSlush611/p2p-web" target="_blank" rel="noopener" underline="hover">
+            Project Code
+          </Link>
+        </Box>
+      </Box>
+      <Box mt={6}></Box>
     </Container>
   );
 }
