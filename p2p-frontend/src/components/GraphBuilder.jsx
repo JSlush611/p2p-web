@@ -50,7 +50,9 @@ function GraphBuilder() {
   const [dataset, setDataset] = useState('competitive');
 
   const buildApiUrl = (selectedStat) => {
-    let url = `${process.env.REACT_APP_API_URI}/api/user-${selectedStat.value}`;
+    // let url = `${process.env.REACT_APP_API_URI}/api/user-${selectedStat.value}`;
+    let url = `http://127.0.0.1:5000/api/user-${selectedStat.value}`;
+
     const params = new URLSearchParams();
 
     if (selectedStat.needYear) {

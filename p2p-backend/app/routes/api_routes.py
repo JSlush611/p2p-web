@@ -1,29 +1,26 @@
 from flask import Blueprint, request
-from app.services.data_service import load_data
-from app.graph_building.plot_utils import (
-    plot_participation_by_year,
+from app.services.data_loader import load_data
+from app.graph_building.general_plots import (
     plot_average_time_by_year,
-    plot_participation_by_age_group,
+    plot_median_time_by_year,
+    plot_participation_by_year,
+    plot_average_time_by_age_group_and_year,
     plot_participation_by_region,
     plot_time_percentiles_by_year,
     plot_gender_distribution_by_year,
-    plot_median_time_by_year,
     plot_top_10_fastest_swimmers,
+    plot_participation_by_age_group,
+)
+from app.graph_building.user_plots import (
     plot_user_time_by_year,
     plot_user_time_percentile_by_year,
-    plot_average_time_by_age_group_and_year,
-    plot_age_vs_time_distribution,
-    find_user_position_in_year,
-    plot_average_time_by_gender_age_group_and_year,
+    plot_average_time_by_gender_age_group_and_year
+)
+from app.graph_building.swimmer_analysis import(
+    find_user_position_in_year
 )
 
 api_bp = Blueprint("api", __name__)
-
-
-@api_bp.route("/test", methods=["GET"])
-def test_api():
-    return {"message": "Hello, this is a test!", "status": "success"}
-
 
 def load_dataset_from_request():
     dataset_type = request.args.get("dataset", "competitive")
@@ -77,12 +74,6 @@ def get_median_over_years():
 def get_top_10_fastest_swimmers():
     df = load_dataset_from_request()
     return plot_top_10_fastest_swimmers(df)
-
-
-@api_bp.route("/age-vs-time-distribution", methods=["GET"])
-def get_age_vs_time_distribution():
-    df = load_dataset_from_request()
-    return plot_age_vs_time_distribution(df)
 
 
 @api_bp.route("/average-time-by-age-group-and-year", methods=["GET"])
