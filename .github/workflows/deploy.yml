@@ -66,11 +66,9 @@ jobs:
 
       - name: Google Auth
         id: auth
-        uses: 'google-github-actions/auth@v0'
+        uses: 'google-github-actions/auth@v2'
         with:
           token_format: 'access_token'
-          # The following must reference your GitHub Actions variables or secrets
-          # Example of usage: set them in your repo's "Settings > Secrets > Actions" or "Settings > Variables > Actions"
           workload_identity_provider: '${{ vars.WIF_PROVIDER }}'
           service_account: '${{ vars.WIF_SERVICE_ACCOUNT }}'
 
