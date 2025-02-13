@@ -3,6 +3,7 @@ import { Container, Grid } from '@mui/material';
 import GraphContainer from './GraphContainer';
 
 function StaticGraphs() {
+  console.log(process.env.REACT_APP_API_URI);
   return (
     <Container maxWidth="lg" style={{ marginTop: '20px' }}>
       <Grid container spacing={4}>
