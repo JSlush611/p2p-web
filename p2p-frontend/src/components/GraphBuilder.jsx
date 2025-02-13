@@ -81,6 +81,8 @@ function GraphBuilder() {
         setApiUrl(constructedApiUrl);
         setResultType('graph');
         setGraphTitle(`${name}'s ${selectedStat.label}`);
+        // Clear any previous result
+        setResult(null);
       } else {
         const response = await axios.get(constructedApiUrl);
         setResultType('stat');
@@ -88,41 +90,120 @@ function GraphBuilder() {
       }
     } catch (err) {
       console.error(err);
+      if (err.response && err.response.data) {
+        setResult(err.response.data);
+      } else {
+        setResult({ error: true, message: 'Error fetching the data.' });
+      }
+      setResultType('stat');
     }
   };
 
-  const renderStatResult = (data) => (
-    <Paper elevation={3} sx={{ padding: '20px', textAlign: 'center', backgroundColor: '#f5f5f5', borderRadius: '8px' }}>
-      <Typography variant="h6" gutterBottom>
-        {`${data.name} - ${data.year}`}
-      </Typography>
-      <Typography variant="h4" color="primary">
-        {`Position: ${data.position} / ${data.total_participants}`}
-      </Typography>
-      <Typography variant="body1">
-        {`Age Group: ${data.age_group} | Participants in Age Group: ${data.total_participants_in_age_group}`}
-      </Typography>
-    </Paper>
-  );
+  const renderStatResult = (data) => {
+    if (data.error) {
+      return (
+        <Paper
+          elevation={3}
+          sx={{
+            padding: '20px',
+            marginTop: '20px',
+            textAlign: 'center',
+            backgroundColor: '#f5f5f5',
+            borderRadius: '8px',
+          }}
+        >
+          <Typography
+            variant="h6"
+            gutterBottom
+            color="error"
+            sx={{ fontWeight: 'bold' }}
+          >
+            {data.message}
+          </Typography>
+          {data.suggestion && (
+            <Typography variant="body1" sx={{ marginTop: '10px' }}>
+              {data.suggestion}
+            </Typography>
+          )}
+        </Paper>
+      );
+    }
+
+    // Normal stat success (position result)
+    return (
+      <Paper
+        elevation={3}
+        sx={{
+          padding: '20px',
+          marginTop: '20px',
+          textAlign: 'center',
+          backgroundColor: '#f5f5f5',
+          borderRadius: '8px',
+        }}
+      >
+        <Typography variant="h6" gutterBottom>
+          {`${data.name} - ${data.year}`}
+        </Typography>
+        <Typography variant="h4" color="primary">
+          {`Position: ${data.position} / ${data.total_participants}`}
+        </Typography>
+        <Typography variant="body1">
+          {`Age Group: ${data.age_group} | Participants in Age Group: ${data.total_participants_in_age_group}`}
+        </Typography>
+      </Paper>
+    );
+  };
 
   return (
     <Card>
       <CardContent>
         <Typography variant="h5">Build Your Own Graph or Stat</Typography>
         <form onSubmit={handleSubmit}>
-          <TextField label="Name" value={name} onChange={(e) => setName(e.target.value)} required fullWidth margin="normal" />
-          <TextField select label="Statistic" value={stat} onChange={(e) => setStat(e.target.value)} required fullWidth margin="normal">
+          <TextField
+            label="Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+            fullWidth
+            margin="normal"
+          />
+          <TextField
+            select
+            label="Statistic"
+            value={stat}
+            onChange={(e) => setStat(e.target.value)}
+            required
+            fullWidth
+            margin="normal"
+          >
             {statsOptions.map((option) => (
               <MenuItem key={option.value} value={option.value}>
                 {option.label}
               </MenuItem>
             ))}
           </TextField>
+
           {statsOptions.find(option => option.value === stat)?.needYear && (
-            <TextField label="Year" type="number" value={year} onChange={(e) => setYear(e.target.value)} fullWidth margin="normal" />
+            <TextField
+              label="Year"
+              type="number"
+              value={year}
+              onChange={(e) => setYear(e.target.value)}
+              fullWidth
+              margin="normal"
+            />
           )}
+
           {statsOptions.find(option => option.value === stat)?.needGender && (
-            <TextField select label="Gender" value={gender} onChange={(e) => setGender(e.target.value)} required fullWidth margin="normal">
+            <TextField
+              select
+              label="Gender"
+              value={gender}
+              onChange={(e) => setGender(e.target.value)}
+              required
+              fullWidth
+              margin="normal"
+            >
               {genderOptions.map((option) => (
                 <MenuItem key={option.value} value={option.value}>
                   {option.label}
@@ -130,8 +211,17 @@ function GraphBuilder() {
               ))}
             </TextField>
           )}
+
           {statsOptions.find(option => option.value === stat)?.needAgeGroup && (
-            <TextField select label="Age Group" value={ageGroup} onChange={(e) => setAgeGroup(e.target.value)} required fullWidth margin="normal">
+            <TextField
+              select
+              label="Age Group"
+              value={ageGroup}
+              onChange={(e) => setAgeGroup(e.target.value)}
+              required
+              fullWidth
+              margin="normal"
+            >
               {ageGroupOptions.map((option) => (
                 <MenuItem key={option.value} value={option.value}>
                   {option.label}
@@ -139,13 +229,29 @@ function GraphBuilder() {
               ))}
             </TextField>
           )}
+
           {statsOptions.find(option => option.value === stat)?.canOverlay && (
             <>
-              <FormControlLabel control={<Checkbox checked={overlay} onChange={(e) => setOverlay(e.target.checked)} />} label="Overlay with Overall Average Time" />
-              <FormControlLabel control={<Checkbox checked={overlayUserTime} onChange={(e) => setOverlayUserTime(e.target.checked)} />} label="Overlay User's Time" />
+              <FormControlLabel
+                control={<Checkbox checked={overlay} onChange={(e) => setOverlay(e.target.checked)} />}
+                label="Overlay with Overall Average Time"
+              />
+              <FormControlLabel
+                control={<Checkbox checked={overlayUserTime} onChange={(e) => setOverlayUserTime(e.target.checked)} />}
+                label="Overlay User's Time"
+              />
             </>
           )}
-          <TextField select label="Dataset" value={dataset} onChange={(e) => setDataset(e.target.value)} required fullWidth margin="normal">
+
+          <TextField
+            select
+            label="Dataset"
+            value={dataset}
+            onChange={(e) => setDataset(e.target.value)}
+            required
+            fullWidth
+            margin="normal"
+          >
             {datasetOptions.map((option) => (
               <MenuItem key={option.value} value={option.value}>
                 {option.label}

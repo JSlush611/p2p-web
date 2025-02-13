@@ -89,9 +89,6 @@ def get_user_time_over_years():
     name = request.args.get("name").lower()
     if not name:
         return {"error": "Name parameter is required"}, 400
-    if name not in df["Name"].str.lower().values:
-        print("not in dataset!")
-        return {"error": f"No data found for {name}"}, 404
     return plot_user_time_by_year(df, name)
 
 
@@ -101,8 +98,6 @@ def get_user_percentile_over_years():
     name = request.args.get("name").lower()
     if not name:
         return {"error": "Name parameter is required"}, 400
-    if name not in df["Name"].str.lower().values:
-        return {"error": f"No data found for {name}"}, 404
     return plot_user_time_percentile_by_year(df, name)
 
 
