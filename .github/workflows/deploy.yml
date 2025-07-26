@@ -34,12 +34,11 @@ jobs:
         with:  
           version: '>= 390.0.0'
 
-      - name: Build & Push Backend  
+      - name: Build & Push Backend
         run: |
           gcloud builds submit \
-            --region=$REGION \
-            --tag=… \
-            --dockerfile=p2p-backend/Dockerfile \
+            --region=${{ env.REGION }} \
+            --tag=${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.BACKEND_SERVICE }}/${{ env.BACKEND_SERVICE }}:${{ github.sha }} \
             p2p-backend
             
       - name: Deploy Backend to Cloud Run  
