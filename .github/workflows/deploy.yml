@@ -39,7 +39,7 @@ jobs:
           gcloud builds submit \
             --region=$REGION \
             --tag=${GAR_LOCATION}-docker.pkg.dev/${PROJECT_ID}/${BACKEND_SERVICE}/${BACKEND_SERVICE}:${{ github.sha }} \
-            ./p2p-backend :contentReference[oaicite:2]{index=2}
+            ./p2p-backend
 
       - name: Deploy Backend to Cloud Run  
         id: deploy-backend
