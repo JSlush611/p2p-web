@@ -1,14 +1,40 @@
-version: '3'
+# docker-compose.yml
+version: "3.8"
 
 services:
-  frontend:
-    build: ./p2p-frontend
-    ports:
-      - "3000:80"  # Port mapping for React app
-
   backend:
-    build: ./p2p-backend
+    build:
+      context: ./p2p-backend
+      dockerfile: Dockerfile
+    volumes:
+      - ./p2p-backend:/app             
     ports:
-      - "5001:5000"  # Port mapping for Flask app
+      - "5000:5000"
+    command: >
+      gunicorn --bind 0.0.0.0:5000 --reload app.app:app             
+
+  frontend:
+    build:
+      context: ./p2p-frontend
+      dockerfile: Dockerfile
+      target: build
+      args:
+        - REACT_APP_API_URI
+        - REACT_APP_EMAIL_JS_SERVICE_ID
+        - REACT_APP_EMAIL_JS_TEMPLATE_ID
+        - REACT_APP_EMAILJS_PUBLIC_KEY
+    volumes:
+      - ./p2p-frontend:/app                  
+      - /app/node_modules                
     environment:
-      - FLASK_ENV=development
+      - REACT_APP_API_URI=http://localhost:5000
+      - REACT_APP_EMAIL_JS_SERVICE_ID
+      - REACT_APP_EMAIL_JS_TEMPLATE_ID
+      - REACT_APP_EMAILJS_PUBLIC_KEY
+    ports:
+      - "3000:3000"
+    command: npm start           
+
+networks:
+  default:
+    driver: bridge
