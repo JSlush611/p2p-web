@@ -27,7 +27,7 @@ jobs:
         uses: google-github-actions/auth@v2  
         with:  
           workload_identity_provider: ${{ vars.WIF_PROVIDER }}  
-          service_account: ${{ vars.WIF_SERVICE_ACCOUNT }} :contentReference[oaicite:0]{index=0}  
+          service_account: ${{ vars.WIF_SERVICE_ACCOUNT }} 
       
       - name: Set up Cloud SDK  
         uses: google-github-actions/setup-gcloud@v2  
@@ -47,14 +47,14 @@ jobs:
         with:  
           service: ${{ env.BACKEND_SERVICE }}  
           region: ${{ env.REGION }}  
-          image: ${GAR_LOCATION}-docker.pkg.dev/${PROJECT_ID}/${BACKEND_SERVICE}/${BACKEND_SERVICE}:${{ github.sha }} :contentReference[oaicite:3]{index=3}
+          image: ${GAR_LOCATION}-docker.pkg.dev/${PROJECT_ID}/${BACKEND_SERVICE}/${BACKEND_SERVICE}:${{ github.sha }}
 
       - name: Build & Push Frontend  
         run: |
           gcloud builds submit \
             --region=$REGION \
             --tag=${GAR_LOCATION}-docker.pkg.dev/${PROJECT_ID}/${FRONTEND_SERVICE}/${FRONTEND_SERVICE}:${{ github.sha }} \
-            ./p2p-frontend :contentReference[oaicite:4]{index=4}
+            ./p2p-frontend 
 
       - name: Deploy Frontend to Cloud Run  
         id: deploy-frontend
@@ -62,7 +62,7 @@ jobs:
         with:  
           service: ${{ env.FRONTEND_SERVICE }}  
           region: ${{ env.REGION }}  
-          image: ${GAR_LOCATION}-docker.pkg.dev/${PROJECT_ID}/${FRONTEND_SERVICE}/${FRONTEND_SERVICE}:${{ github.sha }} :contentReference[oaicite:5]{index=5}
+          image: ${GAR_LOCATION}-docker.pkg.dev/${PROJECT_ID}/${FRONTEND_SERVICE}/${FRONTEND_SERVICE}:${{ github.sha }} 
 
       - name: Show URLs
         run: |
