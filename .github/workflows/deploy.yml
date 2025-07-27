@@ -1,59 +1,62 @@
-name: CI/CD → Cloud Run
-on: [push]
+name: Build & Deploy → Cloud Run
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
 env:
   PROJECT_ID: p2p-web-433803
-  GAR_LOCATION: us-central1
   REGION: us-central1
+  GAR_HOST: us-central1-docker.pkg.dev
+
 permissions:
   contents: read
   id-token: write
 
 jobs:
-  deploy:
+  build-deploy:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - dir: p2p-backend
+            repo: p2p-web-backend/p2p-web-backend
+            service: p2p-web-backend
+          - dir: p2p-frontend
+            repo: p2p-web-frontend/p2p-web-frontend
+            service: p2p-web-frontend
+
     steps:
       - uses: actions/checkout@v4
 
       - uses: google-github-actions/auth@v2
         with:
+          token_format: 'access_token'
           workload_identity_provider: ${{ vars.WIF_PROVIDER }}
           service_account:            ${{ vars.WIF_SERVICE_ACCOUNT }}
 
       - uses: google-github-actions/setup-gcloud@v2
         with:
           project_id: ${{ env.PROJECT_ID }}
-          export_default_credentials: true  
+          export_default_credentials: true
 
-      # build + push images ---------------------------------------------------
-      - name: Build backend image
+      # Build & push image via Cloud Build
+      - name: Build & push ${{ matrix.service }}
         run: |
-          gcloud builds submit \
+          IMAGE="${{ env.GAR_HOST }}/${{ env.PROJECT_ID }}/${{ matrix.repo }}:${{ github.sha }}"
+          gcloud builds submit ${{ matrix.dir }} \
             --region=${{ env.REGION }} \
-            --tag=${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/p2p-web-backend/p2p-web-backend:${{ github.sha }} \
-            p2p-backend
+            --tag="$IMAGE"
 
-      - name: Build frontend image
-        run: |
-          gcloud builds submit \
-            --region=${{ env.REGION }} \
-            --tag=${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/p2p-web-frontend/p2p-web-frontend:${{ github.sha }} \
-            p2p-frontend
-
-      # deploy ----------------------------------------------------------------
-      - uses: google-github-actions/deploy-cloudrun@v2
-        id: deploy-backend
+      # Deploy to Cloud Run
+      - uses: google-github-actions/deploy-cloudrun@v2.7.4
+        id: deploy
         with:
-          service: p2p-web-backend
+          service: ${{ matrix.service }}
           region:  ${{ env.REGION }}
-          image:   ${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/p2p-web-backend/p2p-web-backend:${{ github.sha }}
+          image:   ${{ env.GAR_HOST }}/${{ env.PROJECT_ID }}/${{ matrix.repo }}:${{ github.sha }}
+          flags:   "--revision-suffix=${{ github.run_id }} --allow-unauthenticated"
 
-      - uses: google-github-actions/deploy-cloudrun@v2
-        id: deploy-frontend
-        with:
-          service: p2p-web-frontend
-          region:  ${{ env.REGION }}
-          image:   ${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/p2p-web-frontend/p2p-web-frontend:${{ github.sha }}
-
-      - run: |
-          echo "Backend URL : ${{ steps.deploy-backend.outputs.url }}"
-          echo "Frontend URL: ${{ steps.deploy-frontend.outputs.url }}"
+      - name: Publish URL
+        run: echo "${{ matrix.service }} → ${{ steps.deploy.outputs.url }}" >> $GITHUB_STEP_SUMMARY
