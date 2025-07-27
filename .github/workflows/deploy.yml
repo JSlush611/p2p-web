@@ -23,9 +23,11 @@ jobs:
           - dir: p2p-backend
             repo: p2p-web-backend/p2p-web-backend
             service: p2p-web-backend
+            port: 5000
           - dir: p2p-frontend
             repo: p2p-web-frontend/p2p-web-frontend
             service: p2p-web-frontend
+            port: 80
 
     steps:
       - uses: actions/checkout@v4
@@ -56,7 +58,7 @@ jobs:
           service: ${{ matrix.service }}
           region:  ${{ env.REGION }}
           image:   ${{ env.GAR_HOST }}/${{ env.PROJECT_ID }}/${{ matrix.repo }}:${{ github.sha }}
-          flags:   "--revision-suffix=${{ github.run_id }} --allow-unauthenticated"
+          flags:   "--revision-suffix=${{ github.run_id }} --allow-unauthenticated --port=${{ matrix.port }}"
 
       - name: Publish URL
         run: echo "${{ matrix.service }} → ${{ steps.deploy.outputs.url }}" >> $GITHUB_STEP_SUMMARY
