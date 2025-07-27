@@ -56,7 +56,6 @@ jobs:
           service: ${{ matrix.service }}
           region:  ${{ env.REGION }}
           image:   ${{ env.GAR_HOST }}/${{ env.PROJECT_ID }}/${{ matrix.repo }}:${{ github.sha }}
-          flags:   "--revision-suffix=${{ github.run_id }} --allow-unauthenticated"
 
       - name: Publish URL
         run: echo "${{ matrix.service }} → ${{ steps.deploy.outputs.url }}" >> $GITHUB_STEP_SUMMARY
