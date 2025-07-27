@@ -1,0 +1,5 @@
+# Ignore Python virtual‑env and other local clutter
+venv/
+__pycache__/
+*.pyc
+
