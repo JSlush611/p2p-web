@@ -8,6 +8,7 @@ RUN pip install --no-cache-dir --upgrade pip \
 # ---------- runtime ----------
 FROM python:3.9-slim
 WORKDIR /app
+ENV PORT 8080
 COPY . .
-EXPOSE 5000
-CMD ["gunicorn", "--bind", "0.0.0.0:5000", "app.app:app"]
+EXPOSE 8080
+CMD ["gunicorn", "--bind", "0.0.0.0:${PORT:-8080}", "app.app:app"]
