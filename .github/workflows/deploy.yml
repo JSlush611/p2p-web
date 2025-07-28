@@ -45,9 +45,17 @@ jobs:
       - name: Build & push ${{ matrix.service }}
         run: |
           IMAGE="${{ env.GAR_HOST }}/${{ env.PROJECT_ID }}/${{ matrix.repo }}:${{ github.sha }}"
-          gcloud builds submit ${{ matrix.dir }} \
-            --region=${{ env.REGION }} \
-            --tag="$IMAGE"
+          if [[ "${{ matrix.service }}" == "p2p-web-frontend" ]]; then
+            gcloud builds submit ${{ matrix.dir }} \
+              --region=${{ env.REGION }} \
+              --config=p2p-frontend/cloudbuild.yaml \
+              --substitutions=_REACT_APP_API_URI=https://${{ needs.build-backend.outputs.url }},_REACT_APP_EMAIL_JS_SERVICE_ID=${{ secrets.REACT_APP_EMAIL_JS_SERVICE_ID }},_REACT_APP_EMAIL_JS_TEMPLATE_ID=${{ secrets.REACT_APP_EMAIL_JS_TEMPLATE_ID }},_REACT_APP_EMAILJS_PUBLIC_KEY=${{ secrets.REACT_APP_EMAILJS_PUBLIC_KEY }} \
+              --tag="$IMAGE"
+          else
+            gcloud builds submit ${{ matrix.dir }} \
+              --region=${{ env.REGION }} \
+              --tag="$IMAGE"
+          fi
 
       # Deploy to Cloud Run
       - uses: google-github-actions/deploy-cloudrun@v2.7.4
