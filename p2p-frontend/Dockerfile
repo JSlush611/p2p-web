@@ -3,18 +3,8 @@ FROM node:18 AS build
 WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci --omit=dev
+COPY .env* ./
 COPY . .
-
-ARG REACT_APP_API_URI
-ARG REACT_APP_EMAIL_JS_SERVICE_ID
-ARG REACT_APP_EMAIL_JS_TEMPLATE_ID
-ARG REACT_APP_EMAILJS_PUBLIC_KEY
-
-ENV REACT_APP_API_URI \
-    REACT_APP_EMAIL_JS_SERVICE_ID \
-    REACT_APP_EMAIL_JS_TEMPLATE_ID \
-    REACT_APP_EMAILJS_PUBLIC_KEY
-
 RUN npm run build
 
 # ---------- runtime ----------

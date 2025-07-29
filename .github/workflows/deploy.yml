@@ -1,4 +1,4 @@
-name: Build & Deploy → Cloud Run
+name: Build & Deploy → Cloud Run
 
 on:
   push:
@@ -41,29 +41,36 @@ jobs:
           project_id: ${{ env.PROJECT_ID }}
           export_default_credentials: true
 
-      # Build & push image via Cloud Build
-      - name: Build & push ${{ matrix.service }}
+      # Create .env file for frontend if needed
+      - name: Create frontend .env file
+        if: matrix.service == 'p2p-web-frontend'
+        run: |
+          cat > ${{ matrix.dir }}/.env << EOF
+          REACT_APP_API_URI=${{ secrets.REACT_APP_API_URI }}
+          REACT_APP_EMAIL_JS_SERVICE_ID=${{ secrets.REACT_APP_EMAIL_JS_SERVICE_ID }}
+          REACT_APP_EMAIL_JS_TEMPLATE_ID=${{ secrets.REACT_APP_EMAIL_JS_TEMPLATE_ID }}
+          REACT_APP_EMAILJS_PUBLIC_KEY=${{ secrets.REACT_APP_EMAILJS_PUBLIC_KEY }}
+          REACT_APP_RECAPTCHA_SITE_KEY=${{ secrets.REACT_APP_RECAPTCHA_SITE_KEY }}
+          REACT_APP_RECAPTCHA_SECRET_KEY=${{ secrets.REACT_APP_RECAPTCHA_SECRET_KEY }}
+          GENERATE_SOURCEMAP=false
+          EOF
+
+      # Build & push image via Cloud Build
+      - name: Build & push ${{ matrix.service }}
         run: |
           IMAGE="${{ env.GAR_HOST }}/${{ env.PROJECT_ID }}/${{ matrix.repo }}:${{ github.sha }}"
-          if [[ "${{ matrix.service }}" == "p2p-web-frontend" ]]; then
-            gcloud builds submit ${{ matrix.dir }} \
-              --region=${{ env.REGION }} \
-              --config=p2p-frontend/cloudbuild.yaml \
-              --substitutions=_REACT_APP_API_URI=https://${{ needs.build-backend.outputs.url }},_REACT_APP_EMAIL_JS_SERVICE_ID=${{ secrets.REACT_APP_EMAIL_JS_SERVICE_ID }},_REACT_APP_EMAIL_JS_TEMPLATE_ID=${{ secrets.REACT_APP_EMAIL_JS_TEMPLATE_ID }},_REACT_APP_EMAILJS_PUBLIC_KEY=${{ secrets.REACT_APP_EMAILJS_PUBLIC_KEY }} \
-              --tag="$IMAGE"
-          else
-            gcloud builds submit ${{ matrix.dir }} \
-              --region=${{ env.REGION }} \
-              --tag="$IMAGE"
-          fi
+          gcloud builds submit ${{ matrix.dir }} \
+            --region=${{ env.REGION }} \
+            --tag="$IMAGE"
 
-      # Deploy to Cloud Run
+      # Deploy to Cloud Run
       - uses: google-github-actions/deploy-cloudrun@v2.7.4
         id: deploy
         with:
           service: ${{ matrix.service }}
           region:  ${{ env.REGION }}
           image:   ${{ env.GAR_HOST }}/${{ env.PROJECT_ID }}/${{ matrix.repo }}:${{ github.sha }}
+          env_vars_file: ${{ matrix.service == 'p2p-web-frontend' && format('{0}/.env', matrix.dir) || '' }}
 
       - name: Publish URL
         run: echo "${{ matrix.service }} → ${{ steps.deploy.outputs.url }}" >> $GITHUB_STEP_SUMMARY
