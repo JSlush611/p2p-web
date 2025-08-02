@@ -120,6 +120,7 @@ events = [
     {"event_id": 1026801, "event_course_id": 2278451, "race_date": "2022-08-06"},
     {"event_id": 1057715, "event_course_id": 2388869, "race_date": "2023-08-05"},
     {"event_id": 1086655, "event_course_id": 2500154, "race_date": "2024-08-03"},
+    {"event_id": 1117183, "event_course_id": 2620198, "race_date": "2025-08-02"},
 ]
 
 non_competitive_events = [
@@ -132,6 +133,7 @@ non_competitive_events = [
     {"event_id": 1026801, "event_course_id": 2278452, "race_date": "2022-08-06"},
     {"event_id": 1057715, "event_course_id": 2388870, "race_date": "2023-08-05"},
     {"event_id": 1086655, "event_course_id": 2497952, "race_date": "2024-08-03"},
+    {"event_id": 1117183, "event_course_id": 2620197, "race_date": "2025-08-02"},
 ]
 
 all_results_df = pd.DataFrame()
