@@ -3,7 +3,7 @@ import { Container, Typography, Grid, Avatar, Box, Paper, Link } from '@mui/mate
 
 function AboutPage() {
   const calculateTimeLeft = () => {
-    const nextRaceDate = new Date('August 2, 2025 07:20:00');
+    const nextRaceDate = new Date('August 1, 2025 07:20:00');
     const now = new Date();
     const difference = nextRaceDate - now;
 
@@ -65,19 +65,19 @@ function AboutPage() {
         </Grid>
         <Grid item xs={12} sm={8}>
           <Typography variant="body1" align="center">
-            Hello! I'm Jonathan Schluesche, a lifelong swimmer and dedicated computer science student. 
-            I've competed in swimming for most of my life, and recently participated in the Point to La Pointe swim. 
-            My experience as a swimmer, combined with my background in computer science, inspired me to create 
-            this data visualization tool. I hope it helps fellow swimmers and enthusiasts explore the rich 
+            Hello! I'm Jonathan Schluesche, a lifelong swimmer and dedicated computer science student.
+            I've competed in swimming for most of my life, and recently participated in the Point to La Pointe swim.
+            My experience as a swimmer, combined with my background in computer science, inspired me to create
+            this data visualization tool. I hope it helps fellow swimmers and enthusiasts explore the rich
             history and data of this event.
           </Typography>
         </Grid>
       </Grid>
       <Box mt={4}>
         <Typography variant="body1" align="center">
-          This tool allows you to visualize swim race data from Point to La Pointe over the years. 
-          You can explore various statistics such as average times, median times, participation 
-          rates, and much more. Additionally, you can build your own custom graphs to analyze specific 
+          This tool allows you to visualize swim race data from Point to La Pointe over the years.
+          You can explore various statistics such as average times, median times, participation
+          rates, and much more. Additionally, you can build your own custom graphs to analyze specific
           data points.
         </Typography>
       </Box>
