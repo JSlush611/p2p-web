@@ -11,7 +11,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-EXPOSE 5000
+ENV PORT=8080
 
-# Default command if not overridden by docker-compose
-CMD ["gunicorn", "run:app", "--bind", "0.0.0.0:5000"]
+EXPOSE ${PORT}
+
+CMD exec gunicorn --bind :${PORT} --workers 1 --threads 8 --timeout 0 run:app
