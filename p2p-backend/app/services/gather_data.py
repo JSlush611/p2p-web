@@ -1,156 +1,144 @@
+from typing import List, Dict, Any
 import requests
 import pandas as pd
+import logging
+from datetime import datetime
+from dataclasses import dataclass
+
+logger = logging.getLogger(__name__)
 
 
-def fetch_swim_results(event_id, event_course_id, limit=100):
-    print("Fetching swim results...")
+@dataclass
+class SwimResult:
+    """Data class for storing swim result attributes"""
 
-    from_value = 0
-    all_results = []
-
-    while True:
-        url = f"https://results.athlinks.com/event/{event_id}?eventCourseId={event_course_id}&divisionId=&intervalId=&from={from_value}&limit={limit}"
-        response = requests.get(url)
-        if response.status_code != 200:
-            raise Exception(f"Failed to fetch data from {url}")
-
-        data = response.json()
-        if (
-            not data
-            or "interval" not in data[0]
-            or "intervalResults" not in data[0]["interval"]
-        ):
-            break
-
-        results = data[0]["interval"]["intervalResults"]
-        if not results:
-            break
-
-        all_results.extend(results)
-        from_value += limit
-
-    print("Successfully fetched results...")
-
-    return all_results
+    place: int
+    name: str
+    gender: str
+    pace: float
+    time: int
+    age: int
+    bib: str
+    country: str
+    locality: str
+    region: str
+    overall_rank: int
+    gender_rank: int
+    race_date: datetime
 
 
-def parse_and_store_results(results, race_date):
-    columns = [
-        "Place",
-        "Name",
-        "Gender",
-        "Pace (min/mi)",
-        "Time (ms)",
-        "Age",
-        "Bib",
-        "Country",
-        "Locality",
-        "Region",
-        "OverallRank",
-        "GenderRank",
-        "RaceDate",
-    ]
-    data = []
+class ResultsFetcher:
+    """Handles fetching and processing of swim results"""
 
-    for result in results:
-        print("Parsing results...")
+    def __init__(self, base_url: str = "https://results.athlinks.com"):
+        self.base_url = base_url
+        self.session = requests.Session()
 
-        place = result.get("overallRank")
-        name = result.get("displayName").lower()  # Convert the name to lowercase
-        gender = result.get("gender")
-        time = result.get("time", {}).get("timeInMillis")
+    def fetch_swim_results(self, event_id: str, event_course_id: str, limit: int = 100) -> List[Dict[str, Any]]:
+        """
+        Fetch swim results from the API with proper pagination
 
-        # Check for pace data and convert to min/mi if necessary
+        Args:
+            event_id: The ID of the event
+            event_course_id: The course ID
+            limit: Number of results per page
+
+        Returns:
+            List of raw result dictionaries
+        """
+        from_value = 0
+        all_results = []
+
+        try:
+            while True:
+                url = f"{self.base_url}/event/{event_id}"
+                params = {"eventCourseId": event_course_id, "from": from_value, "limit": limit}
+
+                response = self.session.get(url, params=params)
+                response.raise_for_status()
+
+                data = response.json()
+                if not self._validate_response(data):
+                    break
+
+                results = data[0]["interval"]["intervalResults"]
+                if not results:
+                    break
+
+                all_results.extend(results)
+                from_value += limit
+
+                logger.info(f"Fetched {len(results)} results. Total: {len(all_results)}")
+
+        except requests.RequestException as e:
+            logger.error(f"API request failed: {str(e)}")
+            raise
+
+        return all_results
+
+    def parse_results(self, raw_results: List[Dict[str, Any]], race_date: datetime) -> pd.DataFrame:
+        """
+        Parse raw results into a DataFrame efficiently
+
+        Args:
+            raw_results: List of raw result dictionaries
+            race_date: Date of the race
+
+        Returns:
+            Processed DataFrame
+        """
+        # Process all results at once instead of loop
+        processed_data = [
+            SwimResult(
+                place=result.get("overallRank"),
+                name=result.get("displayName", "").lower(),
+                gender=result.get("gender"),
+                pace=self._calculate_pace(result),
+                time=result.get("time", {}).get("timeInMillis"),
+                age=result.get("age"),
+                bib=result.get("bib"),
+                country=result.get("country"),
+                locality=result.get("locality"),
+                region=result.get("region"),
+                overall_rank=result.get("overallRank"),
+                gender_rank=result.get("genderRank"),
+                race_date=race_date,
+            ).__dict__
+            for result in raw_results
+        ]
+
+        df = pd.DataFrame(processed_data)
+        return self._optimize_dtypes(df)
+
+    def _validate_response(self, data: List[Dict[str, Any]]) -> bool:
+        """
+        Validate the API response structure
+
+        Args:
+            data: Response data from API
+
+        Returns:
+            bool: True if valid, False otherwise
+        """
+        return data and isinstance(data, list) and len(data) > 0 and "interval" in data[0] and "intervalResults" in data[0]["interval"]
+
+    @staticmethod
+    def _calculate_pace(result: Dict[str, Any]) -> float:
+        """Calculate pace in minutes per mile"""
+        time = result.get("time", {}).get("timeInMillis", 0)
         if "pace" in result and "time" in result["pace"]:
-            if result["pace"]["distance"]["distanceUnit"] == "100m":
-                pace = time / (
-                    2 * 60 * 1000
-                )  # Convert milliseconds to minutes per mile
-            else:
-                pace = result["pace"]["time"]["timeInMillis"] / (2 * 60 * 1000)
-        else:
-            pace = time / (2 * 60 * 1000)  # Default conversion if pace is not given
+            return (result["pace"]["time"]["timeInMillis"] if result["pace"]["distance"]["distanceUnit"] != "100m" else time) / (
+                2 * 60 * 1000
+            )
+        return time / (2 * 60 * 1000)
 
-        age = result.get("age")
-        bib = result.get("bib")
-        country = result.get("country")
-        locality = result.get("locality")
-        region = result.get("region")
-        overall_rank = result.get("overallRank")
-        gender_rank = result.get("genderRank")
+    @staticmethod
+    def _optimize_dtypes(df: pd.DataFrame) -> pd.DataFrame:
+        """Optimize DataFrame memory usage"""
+        numeric_columns = ["place", "time", "age", "overall_rank", "gender_rank"]
+        for col in numeric_columns:
+            if col in df.columns:
+                df[col] = pd.to_numeric(df[col], downcast="integer")
 
-        data.append(
-            [
-                place,
-                name,
-                gender,
-                pace,
-                time,
-                age,
-                bib,
-                country,
-                locality,
-                region,
-                overall_rank,
-                gender_rank,
-                race_date,
-            ]
-        )
-
-        print("Appended data to dataframe... ")
-
-    df = pd.DataFrame(data, columns=columns)
-    return df
-
-
-events = [
-    {"event_id": 71537, "event_course_id": 105499, "race_date": "2008-08-09"},
-    {"event_id": 99327, "event_course_id": 138171, "race_date": "2009-08-08"},
-    {"event_id": 116712, "event_course_id": 160351, "race_date": "2010-08-07"},
-    {"event_id": 174805, "event_course_id": 240534, "race_date": "2011-08-06"},
-    {"event_id": 222157, "event_course_id": 307963, "race_date": "2012-08-04"},
-    {"event_id": 280767, "event_course_id": 399878, "race_date": "2013-08-10"},
-    {"event_id": 396845, "event_course_id": 594582, "race_date": "2014-08-02"},
-    {"event_id": 473893, "event_course_id": 705520, "race_date": "2015-08-01"},
-    {"event_id": 591486, "event_course_id": 889709, "race_date": "2016-08-06"},
-    {"event_id": 575969, "event_course_id": 863680, "race_date": "2017-07-29"},
-    {"event_id": 667229, "event_course_id": 1051781, "race_date": "2018-08-04"},
-    {"event_id": 766892, "event_course_id": 1310567, "race_date": "2019-08-03"},
-    {"event_id": 976979, "event_course_id": 2088562, "race_date": "2021-08-07"},
-    {"event_id": 1026801, "event_course_id": 2278451, "race_date": "2022-08-06"},
-    {"event_id": 1057715, "event_course_id": 2388869, "race_date": "2023-08-05"},
-    {"event_id": 1086655, "event_course_id": 2500154, "race_date": "2024-08-03"},
-    {"event_id": 1117183, "event_course_id": 2620198, "race_date": "2025-08-02"},
-]
-
-non_competitive_events = [
-    {"event_id": 116712, "event_course_id": 235787, "race_date": "2010-08-07"},
-    {"event_id": 591486, "event_course_id": 895187, "race_date": "2016-08-06"},
-    {"event_id": 575969, "event_course_id": 863681, "race_date": "2017-07-29"},
-    {"event_id": 667229, "event_course_id": 1051782, "race_date": "2018-08-04"},
-    {"event_id": 766892, "event_course_id": 1310568, "race_date": "2019-08-03"},
-    {"event_id": 976979, "event_course_id": 2088563, "race_date": "2021-08-07"},
-    {"event_id": 1026801, "event_course_id": 2278452, "race_date": "2022-08-06"},
-    {"event_id": 1057715, "event_course_id": 2388870, "race_date": "2023-08-05"},
-    {"event_id": 1086655, "event_course_id": 2497952, "race_date": "2024-08-03"},
-    {"event_id": 1117183, "event_course_id": 2620197, "race_date": "2025-08-02"},
-]
-
-all_results_df = pd.DataFrame()
-non_competitive_results_df = pd.DataFrame()
-
-for event in events:
-    results = fetch_swim_results(event["event_id"], event["event_course_id"])
-    event_df = parse_and_store_results(results, event["race_date"])
-    all_results_df = pd.concat([all_results_df, event_df], ignore_index=True)
-
-for event in non_competitive_events:
-    results = fetch_swim_results(event["event_id"], event["event_course_id"])
-    event_df = parse_and_store_results(results, event["race_date"])
-    non_competitive_results_df = pd.concat(
-        [non_competitive_results_df, event_df], ignore_index=True
-    )
-
-all_results_df.to_csv("competitive-swim_results.csv", index=False)
-non_competitive_results_df.to_csv("non-competitive-swim_results.csv", index=False)
-print("All data successfully saved to CSV files")
+        df["pace"] = df["pace"].astype("float32")
+        return df
