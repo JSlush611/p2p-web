@@ -10,8 +10,7 @@ services:
       - ./p2p-backend:/app             
     ports:
       - "5000:5000"
-    command: >
-      gunicorn --bind 0.0.0.0:5000 --reload app.app:app             
+    command: gunicorn run:app --bind 0.0.0.0:5000         
 
   frontend:
     build:
