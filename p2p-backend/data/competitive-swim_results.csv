@@ -5972,3 +5972,354 @@ Place,Name,Gender,Pace (min/mi),Time (ms),Age,Bib,Country,Locality,Region,Overal
 368,liliana forzani,F,63.516666666666666,7622000,59,458,US,St Paul,Minnesota,368,232,2025-08-02
 369,patricia lindquist,F,63.858333333333334,7663000,45,369,US,Abrams,Wisconsin,369,233,2025-08-02
 295,sarah sponholz,F,44.4,5328000,48,418,US,Ely,Minnesota,295,184,2025-08-02
+1,brian kirkvold,M,23.6,2832000,48,7,US,Chanhassen,Minnesota,1,1,2026-08-01
+2,elliot wilcox,M,23.933333333333334,2872000,34,105,US,Hastings,Minnesota,2,2,2026-08-01
+3,chris bernard,M,24.616666666666667,2954000,40,140,US,Ramsey,Minnesota,3,3,2026-08-01
+4,nicholas cole,M,24.708333333333332,2965000,40,33,US,Kewaskum,Wisconsin,4,4,2026-08-01
+5,michael daup,M,25.283333333333335,3034000,37,63,US,Eden Prairie,Minnesota,5,5,2026-08-01
+6,andrew wilson,M,25.525,3063000,40,110,US,Minneapolis,Minnesota,6,6,2026-08-01
+7,peter morris,M,25.591666666666665,3071000,32,303,US,Milwaukee,Wisconsin,7,7,2026-08-01
+8,daniel hurley,M,25.6,3072000,46,8,US,Apple Valley,Minnesota,8,8,2026-08-01
+9,john reinartz,M,25.6,3072000,65,34,US,St Paul,Minnesota,9,9,2026-08-01
+10,mitch wise,M,25.675,3081000,35,101,US,Minneapolis,Minnesota,10,10,2026-08-01
+11,jonathan schluesche,M,25.725,3087000,22,69,US,Sun Prairie,Wisconsin,11,11,2026-08-01
+12,joshua donovan,M,25.75,3090000,19,120,US,Burke,Virginia,12,12,2026-08-01
+13,bob thompson,M,25.816666666666666,3098000,57,109,US,Minneapolis,Minnesota,13,13,2026-08-01
+14,seth anderson,M,26.275,3153000,32,155,US,Minneapolis,Minnesota,14,14,2026-08-01
+15,w. casey mcgrath,M,26.458333333333332,3175000,54,103,US,Minneapolis,Minnesota,15,15,2026-08-01
+16,james gansen,M,26.741666666666667,3209000,19,156,US,Janesville,Wisconsin,16,16,2026-08-01
+17,david reddington,M,26.775,3213000,59,66,US,Waunakee,Wisconsin,17,17,2026-08-01
+18,david holden,M,26.875,3225000,57,18,US,Hudson,Wisconsin,18,18,2026-08-01
+19,scott tripps,M,27.066666666666666,3248000,56,9,US,Wayzata,Minnesota,19,19,2026-08-01
+20,robert king,M,27.191666666666666,3263000,62,5,US,St Paul,Minnesota,20,20,2026-08-01
+21,madeline kirkvold,F,27.308333333333334,3277000,16,24,US,Excelsior,Minnesota,21,1,2026-08-01
+22,brice strickland,M,27.5,3300000,44,65,US,Mundelein,Illinois,22,21,2026-08-01
+23,clare slagel,F,27.783333333333335,3334000,32,122,US,Dubuque,Iowa,23,2,2026-08-01
+24,luke johanns,M,27.941666666666666,3353000,32,143,US,Saint Paul,Minnesota,24,22,2026-08-01
+25,carrie stolar,F,27.95,3354000,59,4,US,Chanhassen,Minnesota,25,3,2026-08-01
+26,parker scanlon,M,28.108333333333334,3373000,24,1,US,St Paul,Minnesota,26,23,2026-08-01
+27,katelyn holmquist,F,28.116666666666667,3374000,31,59,US,Medina,Minnesota,27,4,2026-08-01
+28,sophie pilhofer,F,28.216666666666665,3386000,35,27,US,St. Paul,Minnesota,28,5,2026-08-01
+29,marc debrock,M,28.775,3453000,70,61,US,McNaughton,Wisconsin,29,24,2026-08-01
+30,brian cormican,M,28.85,3462000,29,277,US,Madison,Wisconsin,30,25,2026-08-01
+31,matt simcik,M,28.875,3465000,56,38,US,Stillwater,Minnesota,31,26,2026-08-01
+32,cady gansen,F,28.941666666666666,3473000,30,23,US,Philadelphia,Pennsylvania,32,6,2026-08-01
+33,david ullman,M,29.2,3504000,46,58,US,Ashland,Wisconsin,33,27,2026-08-01
+34,sofia oman,F,29.233333333333334,3508000,16,378,US,Bloomington,Minnesota,34,7,2026-08-01
+35,brian soltis,M,29.241666666666667,3509000,57,62,US,St. Paul,Minnesota,35,28,2026-08-01
+36,brayden birkett,M,29.266666666666666,3512000,16,20,US,Prairie Du Sac,Wisconsin,36,29,2026-08-01
+37,zhao zheng,M,29.341666666666665,3521000,20,22,US,Eau Claire,Wisconsin,37,30,2026-08-01
+38,alex bryson,M,29.4,3528000,33,71,US,MENASHA,Wisconsin,38,31,2026-08-01
+39,laura haynssen,F,29.408333333333335,3529000,39,48,US,Minneapolis,Minnesota,39,8,2026-08-01
+40,kathy peterson,F,29.541666666666668,3545000,55,45,US,Cross Plains,Wisconsin,40,9,2026-08-01
+41,matthew diehl,M,29.575,3549000,38,108,US,LA CROSSE,Wisconsin,41,32,2026-08-01
+42,lynn ascione,F,29.591666666666665,3551000,59,92,US,Middleton,Wisconsin,42,10,2026-08-01
+43,paul mclellan,M,29.683333333333334,3562000,60,37,US,LA CRESCENT,Minnesota,43,33,2026-08-01
+44,brady huemann,M,29.683333333333334,3562000,36,67,US,Milwaukee,Wisconsin,44,34,2026-08-01
+45,abby holmquist,F,29.783333333333335,3574000,31,84,US,Chicago,Illinois,45,11,2026-08-01
+46,amber hess,F,29.841666666666665,3581000,20,160,US,Kohler,Wisconsin,46,12,2026-08-01
+47,allison peck,F,30.0,3600000,24,207,US,Minnetonka,Minnesota,47,13,2026-08-01
+48,lil geib,F,30.025,3603000,16,157,US,McFarland,Wisconsin,48,14,2026-08-01
+49,carrie bunger,F,30.141666666666666,3617000,47,32,US,Madison,Wisconsin,49,15,2026-08-01
+50,tony challeen,M,30.191666666666666,3623000,34,54,US,Minneapolis,Minnesota,50,35,2026-08-01
+51,logan albert,M,30.266666666666666,3632000,42,12,US,Madison,Wisconsin,51,36,2026-08-01
+52,brian hurley,M,30.316666666666666,3638000,46,15,US,Apple Valley,Minnesota,52,37,2026-08-01
+53,kristin lee,F,30.383333333333333,3646000,46,118,US,Fitchburg,Wisconsin,53,16,2026-08-01
+54,luke strand,M,30.408333333333335,3649000,16,64,US,Hoyt lakes,Minnesota,54,38,2026-08-01
+55,ross rembac,M,30.45,3654000,59,25,US,Scottsdale,Arizona,55,39,2026-08-01
+56,martha o'brien,F,30.466666666666665,3656000,41,11,US,Watertown,Wisconsin,56,17,2026-08-01
+57,adam grovender,M,30.508333333333333,3661000,47,2,US,Maple Grove,Minnesota,57,40,2026-08-01
+58,chad ciferri,M,30.6,3672000,40,35,US,Minneapolis,Minnesota,58,41,2026-08-01
+59,kelsey dahlager,F,30.625,3675000,39,19,US,Saint Paul,Minnesota,59,18,2026-08-01
+60,ruth lucht,F,30.633333333333333,3676000,22,129,US,St Francis,Wisconsin,60,19,2026-08-01
+61,christopher foley,M,30.683333333333334,3682000,55,151,US,Dayton,Minnesota,61,42,2026-08-01
+62,andrea kristensen,F,31.0,3720000,31,176,US,Minneapolis,Minnesota,62,20,2026-08-01
+63,abby diehl,F,31.125,3735000,35,97,US,Verona,Wisconsin,63,21,2026-08-01
+64,judy bablok,F,31.133333333333333,3736000,64,50,US,Cleveland,New York,64,22,2026-08-01
+65,madeline elseth,F,31.175,3741000,21,154,US,Grand Forks,North Dakota,65,23,2026-08-01
+66,carol westphal,F,31.541666666666668,3785000,61,43,US,Au Train,Michigan,66,24,2026-08-01
+67,peter maves,M,31.633333333333333,3796000,43,169,US,Rochester,Minnesota,67,43,2026-08-01
+68,aidan coffin ness,F,31.725,3807000,28,56,US,Madison,Wisconsin,68,25,2026-08-01
+69,josie peterson,F,31.733333333333334,3808000,23,73,US,Jefferson,Wisconsin,69,26,2026-08-01
+70,emma stuba,F,31.85,3822000,31,31,US,West St Paul,Minnesota,70,27,2026-08-01
+71,alexis roach,F,31.891666666666666,3827000,29,26,US,Chicago,Illinois,71,28,2026-08-01
+72,bette rowley,F,31.95,3834000,41,78,US,Burnsville,Minnesota,72,29,2026-08-01
+73,melissa jacobsen,F,31.95,3834000,44,30,US,Eagan,Minnesota,73,30,2026-08-01
+74,layla hoyos,F,32.03333333333333,3844000,16,52,US,McFarland,Wisconsin,74,31,2026-08-01
+75,abigail scheller,F,32.11666666666667,3854000,32,179,US,Dayton,Minnesota,75,32,2026-08-01
+76,pilar dritzmith,F,32.125,3855000,30,13,US,Eagan,Minnesota,76,33,2026-08-01
+77,patrick taylor,M,32.13333333333333,3856000,36,422,US,New York,New York,77,44,2026-08-01
+78,chloe bartuska,F,32.13333333333333,3856000,34,49,US,Minneapolis,Minnesota,78,34,2026-08-01
+79,matt staver,M,32.34166666666667,3881000,28,134,US,Minneapolis,Minnesota,79,45,2026-08-01
+80,josh leibfried,M,32.4,3888000,38,132,US,Minneapolis,Minnesota,80,46,2026-08-01
+81,katy mering,F,32.425,3891000,67,94,US,Baraboo,Wisconsin,81,35,2026-08-01
+82,cindy buteyn,F,32.43333333333333,3892000,58,41,US,Milwaukee,Wisconsin,82,36,2026-08-01
+83,corryn brown,F,32.458333333333336,3895000,36,141,US,Wauwatosa,Wisconsin,83,37,2026-08-01
+84,brian edstrom,M,32.483333333333334,3898000,45,40,US,Dellwood,Minnesota,84,47,2026-08-01
+85,mike lamphear,M,32.483333333333334,3898000,68,419,US,Ozark,Missouri,85,48,2026-08-01
+86,michael soltis,M,32.50833333333333,3901000,57,89,US,Rochester,Minnesota,86,49,2026-08-01
+87,aaron deuermeyer,M,32.63333333333333,3916000,41,44,US,Burnsville,Minnesota,87,50,2026-08-01
+88,langdon coburn,M,32.65833333333333,3919000,17,6,US,Whitewater,Wisconsin,88,51,2026-08-01
+89,ann berres-olivotti,F,32.666666666666664,3920000,67,90,US,Baraboo,Wisconsin,89,38,2026-08-01
+90,nicholas rhodes,M,32.7,3924000,45,117,US,Rochester,Minnesota,90,52,2026-08-01
+91,malena rupp,F,32.7,3924000,14,57,US,SAINT PAUL,Minnesota,91,39,2026-08-01
+92,christopher rupp,M,32.7,3924000,46,60,US,SAINT PAUL,Minnesota,92,53,2026-08-01
+93,rob kroll,M,32.88333333333333,3946000,66,228,US,Wauwatosa,Wisconsin,93,54,2026-08-01
+94,laura westphal,F,32.891666666666666,3947000,27,17,US,Seattle,Washington,94,40,2026-08-01
+95,timothy mess,M,32.925,3951000,39,88,US,Eau Claire,Wisconsin,95,55,2026-08-01
+96,mackenzie o'kane,F,32.93333333333333,3952000,31,225,US,St. Paul,Minnesota,96,41,2026-08-01
+97,elias simonsen,M,32.958333333333336,3955000,15,29,US,Harshaw,Wisconsin,97,56,2026-08-01
+98,malia borg,F,33.125,3975000,26,401,US,Chicago,Illinois,98,42,2026-08-01
+99,erin mettert,F,33.141666666666666,3977000,48,249,US,Verona,Wisconsin,99,43,2026-08-01
+100,timothy obrien,M,33.38333333333333,4006000,32,82,US,Duluth,Minnesota,100,57,2026-08-01
+101,charles curry,M,33.525,4023000,71,93,US,Grand Marais,Minnesota,101,58,2026-08-01
+102,jackie goiffon,F,33.641666666666666,4037000,46,211,US,Golden Valley,Minnesota,102,44,2026-08-01
+103,julie van cleave,F,33.65,4038000,67,99,US,Waunakee,Wisconsin,103,45,2026-08-01
+104,michelle hall,F,33.65833333333333,4039000,40,72,US,MILWAUKEE,Wisconsin,104,46,2026-08-01
+105,paul miller,M,33.708333333333336,4045000,63,146,US,Vadnais Heights,Minnesota,105,59,2026-08-01
+106,ryan rotramel,M,33.708333333333336,4045000,45,178,US,Minneapolis,Minnesota,106,60,2026-08-01
+107,jim gribble,M,33.80833333333333,4057000,61,243,US,Marine on St Croix,Minnesota,107,61,2026-08-01
+108,abby beau,F,33.958333333333336,4075000,34,137,US,Shorewood,Wisconsin,108,47,2026-08-01
+109,calyn schardt,F,33.99166666666667,4079000,24,81,US,Woodbury,Minnesota,109,48,2026-08-01
+110,daniel o’kane,M,34.0,4080000,45,113,US,Saint Paul,Minnesota,110,62,2026-08-01
+111,karen gullicksrud,F,34.00833333333333,4081000,44,206,US,Eau Claire,Wisconsin,111,49,2026-08-01
+112,graham wellner,M,34.03333333333333,4084000,15,171,US,Minneapolis,Minnesota,112,63,2026-08-01
+113,tyler gerst,M,34.05833333333333,4087000,36,111,US,Plymouth,Minnesota,113,64,2026-08-01
+114,stephanie bolin,F,34.1,4092000,35,70,US,Oshkosh,Wisconsin,114,50,2026-08-01
+115,emiro caicedo granados,M,34.166666666666664,4100000,59,202,US,Minneapolis,Minnesota,115,65,2026-08-01
+116,alise rotramel,F,34.25,4110000,42,177,US,Minneapolis,Minnesota,116,51,2026-08-01
+117,laura palombi,F,34.25833333333333,4111000,47,14,US,Cloquet,Minnesota,117,52,2026-08-01
+118,james schaak,M,34.375,4125000,25,265,US,Madison,Wisconsin,118,66,2026-08-01
+119,gerald palmer,M,34.38333333333333,4126000,76,21,US,Waunakee,Wisconsin,119,67,2026-08-01
+120,pamela sweet,F,34.49166666666667,4139000,53,144,US,Rogers,Minnesota,120,53,2026-08-01
+121,katherine peters,F,34.575,4149000,16,279,US,Cedar Falls,Iowa,121,54,2026-08-01
+122,andy wiegand,M,34.59166666666667,4151000,50,159,US,Lakeville,Minnesota,122,68,2026-08-01
+123,sam jaeger,M,34.608333333333334,4153000,30,261,US,Denver,Colorado,123,69,2026-08-01
+124,bridget paquette,F,34.63333333333333,4156000,47,200,US,Peshtigo,Wisconsin,124,55,2026-08-01
+125,matthew peckham,M,34.825,4179000,30,39,US,St Paul,Minnesota,125,70,2026-08-01
+126,patrick donovan,M,34.9,4188000,63,138,US,Burke,Virginia,126,71,2026-08-01
+127,kendal bjella,F,34.93333333333333,4192000,36,96,US,Cottonwood Heights,Utah,127,56,2026-08-01
+128,tatjana brenninkmeijer,F,35.06666666666667,4208000,31,172,CH,Meggen,Luzern,128,57,2026-08-01
+129,britta rupp,F,35.083333333333336,4210000,44,80,US,Saint Paul,Minnesota,129,58,2026-08-01
+130,anna foster,F,35.11666666666667,4214000,43,74,US,Saint Michael,Minnesota,130,59,2026-08-01
+131,katie braski,F,35.15833333333333,4219000,41,114,US,Minneapolis,Minnesota,131,60,2026-08-01
+132,jeffrey bauer,M,35.25,4230000,37,153,US,St Paul,Minnesota,132,72,2026-08-01
+133,andres tineo-paz,M,35.36666666666667,4244000,32,127,US,Madison,Wisconsin,133,73,2026-08-01
+134,michael van dyke,M,35.44166666666667,4253000,36,235,US,Wauwatosa,Wisconsin,134,74,2026-08-01
+135,patricia burd,F,35.575,4269000,62,416,US,Cottage Grove,Minnesota,135,61,2026-08-01
+136,erica gallagher,F,35.80833333333333,4297000,55,410,US,Cross Plains,Wisconsin,136,62,2026-08-01
+137,nole robertson,M,35.96666666666667,4316000,23,339,US,"BRAINERD, MN",Minnesota,137,75,2026-08-01
+138,annemarie johnson,F,35.96666666666667,4316000,26,77,US,Fitchburg,Wisconsin,138,63,2026-08-01
+139,maddy hierlinger,F,35.975,4317000,19,124,US,Saint Paul,Minnesota,139,64,2026-08-01
+140,mary jane metzdorff,F,35.99166666666667,4319000,29,408,US,St Paul,Minnesota,140,65,2026-08-01
+141,emily harrison,F,36.03333333333333,4324000,39,195,US,Mendota Heights,Minnesota,141,66,2026-08-01
+142,keith miller,M,36.05,4326000,68,232,US,Kewaskum,Wisconsin,142,76,2026-08-01
+143,daniel radler,M,36.05833333333333,4327000,67,175,US,Elm Grove,Wisconsin,143,77,2026-08-01
+144,anthony kuehl,M,36.141666666666666,4337000,24,125,US,Altoona,Wisconsin,144,78,2026-08-01
+145,libby larson,F,36.325,4359000,33,147,US,Grand Marais,Minnesota,145,67,2026-08-01
+146,claudia hanson,F,36.34166666666667,4361000,19,75,US,St Paul,Minnesota,146,68,2026-08-01
+147,wil mclellan,M,36.483333333333334,4378000,26,36,US,La Crescent,Minnesota,147,79,2026-08-01
+148,mary hauff,F,36.5,4380000,65,183,US,Minnetonka,Minnesota,148,69,2026-08-01
+149,kristin biwer,F,36.50833333333333,4381000,55,83,US,Vernon Hills,Illinois,149,70,2026-08-01
+150,sarah oman,F,36.625,4395000,51,409,US,Bloomington,Minnesota,150,71,2026-08-01
+151,paul kudrle,M,36.625,4395000,52,53,US,Sun Prairie,Wisconsin,151,80,2026-08-01
+152,lars bland,M,36.833333333333336,4420000,40,208,US,Duluth,Minnesota,152,81,2026-08-01
+153,elika beck,F,36.88333333333333,4426000,32,264,US,Minneapolis,Minnesota,153,72,2026-08-01
+154,lisa weispfenning,F,36.983333333333334,4438000,53,213,US,Washburn,Wisconsin,154,73,2026-08-01
+155,molly migon,F,37.05,4446000,18,250,US,Verona,Wisconsin,155,74,2026-08-01
+156,tobias looser,M,37.05833333333333,4447000,30,302,CH,Meggen,Luzern,156,82,2026-08-01
+157,dawn kittleson,F,37.30833333333333,4477000,62,308,US,White Bear Lake,Minnesota,157,75,2026-08-01
+158,jeb rowley,M,37.333333333333336,4480000,30,79,US,Burnsville,Minnesota,158,83,2026-08-01
+159,anna olson,F,37.475,4497000,47,212,US,Onalaska,Wisconsin,159,76,2026-08-01
+160,eura chang,F,37.541666666666664,4505000,33,223,US,Minneapolis,Minnesota,160,77,2026-08-01
+161,jennifer stoltz,F,37.541666666666664,4505000,61,163,US,Grand Marais,Minnesota,161,78,2026-08-01
+162,kristen mccarty,F,37.6,4512000,38,389,US,Babbitt,Minnesota,162,79,2026-08-01
+163,cally robertson,F,37.6,4512000,21,341,US,BRAINERD,Minnesota,163,80,2026-08-01
+164,samantha brooks,F,37.675,4521000,35,145,US,Racine,Wisconsin,164,81,2026-08-01
+165,regina butler,F,37.75,4530000,46,295,US,Fall Creek,Wisconsin,165,82,2026-08-01
+166,brianna luecke,F,37.825,4539000,34,246,US,White Bear Lake,Minnesota,166,83,2026-08-01
+167,jill wroblewski,F,37.975,4557000,59,237,US,Minneapolis,Minnesota,167,84,2026-08-01
+168,gina rysdon,F,38.075,4569000,47,318,US,Minneapolis,Minnesota,168,85,2026-08-01
+169,catherine hilcove,F,38.15833333333333,4579000,45,240,US,Madison,Wisconsin,169,86,2026-08-01
+170,susan sheely,F,38.25,4590000,53,173,US,River Falls,Wisconsin,170,87,2026-08-01
+171,rachel howard,F,38.358333333333334,4603000,34,417,US,Hales Corners,Wisconsin,171,88,2026-08-01
+172,cheryl siler,F,38.358333333333334,4603000,55,189,US,TORRANCE,California,172,89,2026-08-01
+173,jerry lourigan,M,38.50833333333333,4621000,61,51,US,Madison,Wisconsin,173,84,2026-08-01
+174,christopher coon,M,38.55,4626000,45,100,US,Rochester,Minnesota,174,85,2026-08-01
+175,olivia saamanen,F,38.55833333333333,4627000,18,188,US,DULUTH,Minnesota,175,90,2026-08-01
+176,shane ironside,M,38.583333333333336,4630000,56,214,US,Wisconsin rapids,Wisconsin,176,86,2026-08-01
+177,paul schuster,M,38.78333333333333,4654000,67,47,US,Minneapolis,Minnesota,177,87,2026-08-01
+178,heather lau,F,38.85,4662000,47,415,US,Mosinee,Wisconsin,178,91,2026-08-01
+179,james siler,M,38.9,4668000,56,190,US,TORRANCE,California,179,88,2026-08-01
+180,james glasnapp,M,38.9,4668000,58,28,US,SF,California,180,89,2026-08-01
+181,sara heitkamp,F,38.93333333333333,4672000,34,418,US,Rosemount,Minnesota,181,92,2026-08-01
+182,robert radler,M,38.95,4674000,69,306,US,Portland,Oregon,182,90,2026-08-01
+183,flynn franzen,M,39.00833333333333,4681000,31,115,US,Minneapolis,Minnesota,183,91,2026-08-01
+184,adrienne richter,F,39.108333333333334,4693000,42,293,US,North Branch,Minnesota,184,93,2026-08-01
+185,tim jennings,M,39.416666666666664,4730000,59,271,US,Wisconsin Rapids,Wisconsin,185,92,2026-08-01
+186,john hierlinger,M,39.525,4743000,48,251,US,Saint Paul,Minnesota,186,93,2026-08-01
+187,miriam shapiro,F,39.59166666666667,4751000,47,222,US,Saint Paul,Minnesota,187,94,2026-08-01
+188,laurie clausen,F,39.6,4752000,67,289,US,Lake Tomahawk,Wisconsin,188,95,2026-08-01
+189,rosie minich,F,39.61666666666667,4754000,33,286,US,Gilsum,New Hampshire,189,96,2026-08-01
+190,paddy guerin,F,39.708333333333336,4765000,63,296,US,Duluth,Minnesota,190,97,2026-08-01
+191,natalie heneghan,F,39.86666666666667,4784000,33,199,US,La Crosse,Wisconsin,191,98,2026-08-01
+192,brian billingsley,M,39.983333333333334,4798000,65,420,US,Golden Valley,Minnesota,192,94,2026-08-01
+193,mary smith,F,40.016666666666666,4802000,54,268,US,Hotchkiss,Colorado,193,99,2026-08-01
+194,tara schluesche,F,40.13333333333333,4816000,53,231,US,Sun Prairie,Wisconsin,194,100,2026-08-01
+195,harry watson,M,40.19166666666667,4823000,33,136,US,Minneapolis,Minnesota,195,95,2026-08-01
+196,marcela contreras,F,40.19166666666667,4823000,51,184,US,Minneapolis,Minnesota,196,101,2026-08-01
+197,joan eckert,F,40.2,4824000,70,274,US,Wausau,Wisconsin,197,102,2026-08-01
+198,john corcoran,M,40.25833333333333,4831000,67,130,CA,Thunder Bay,Ontario,198,96,2026-08-01
+199,caitlin reis,F,40.375,4845000,30,353,US,Hudson,Wisconsin,199,103,2026-08-01
+200,alaina lenz,F,40.416666666666664,4850000,23,278,US,Duluth,Minnesota,200,104,2026-08-01
+201,john carey,M,40.425,4851000,65,192,US,Superior,Wisconsin,201,97,2026-08-01
+202,callahan mclellan,M,40.483333333333334,4858000,27,351,US,LA CRESCENT,Minnesota,202,98,2026-08-01
+203,nathan hauber,M,40.49166666666667,4859000,63,273,US,Bayfield,Wisconsin,203,99,2026-08-01
+204,bethany anderson,F,40.55833333333333,4867000,47,398,US,Middleton,Wisconsin,204,105,2026-08-01
+205,tom jaroski,M,40.56666666666667,4868000,66,300,US,Merrill,Wisconsin,205,100,2026-08-01
+206,mike caguin,M,40.575,4869000,54,233,US,Minneapolis,Minnesota,206,101,2026-08-01
+207,corey dintelman,M,40.666666666666664,4880000,48,393,US,Madison,Wisconsin,207,102,2026-08-01
+208,pat quintero,M,40.875,4905000,65,158,US,Mendota Hts,Minnesota,208,103,2026-08-01
+209,grace hogan,F,40.99166666666667,4919000,45,181,US,Bayfield,Wisconsin,209,106,2026-08-01
+210,karen hugill,F,41.125,4935000,49,126,US,stevens point,Wisconsin,210,107,2026-08-01
+211,samantha talerico,F,41.13333333333333,4936000,31,282,US,Minneapolis,Minnesota,211,108,2026-08-01
+212,ren talerico,F,41.15,4938000,21,283,US,Madison,Wisconsin,212,109,2026-08-01
+213,karsten finseth,M,41.358333333333334,4963000,46,426,US,Lakeville,Minnesota,213,104,2026-08-01
+214,allison moseley,F,41.358333333333334,4963000,43,272,US,Madison,Wisconsin,214,110,2026-08-01
+215,andrea beck,F,41.391666666666666,4967000,38,299,US,Superior,Wisconsin,215,111,2026-08-01
+216,allison brewer,F,41.40833333333333,4969000,31,148,US,Richfield,Minnesota,216,112,2026-08-01
+217,thomas wallhaus,M,41.45,4974000,63,397,US,Madison,Wisconsin,217,105,2026-08-01
+218,owen robertson,M,41.575,4989000,18,427,US,BRAINERD,Minnesota,218,106,2026-08-01
+219,peter hart,M,41.625,4995000,49,149,US,Grand Junction,Colorado,219,107,2026-08-01
+220,jessica deegan,F,41.63333333333333,4996000,50,198,US,Saint Paul,Minnesota,220,113,2026-08-01
+221,ronald crunkilton,M,41.63333333333333,4996000,72,203,US,Stevens Point,Wisconsin,221,108,2026-08-01
+222,stephanie toering peters,F,41.68333333333333,5002000,52,263,US,Cedar Falls,Iowa,222,114,2026-08-01
+223,britt guild,F,41.775,5013000,52,366,US,Minneapolis,Minnesota,223,115,2026-08-01
+224,shawn mccarty,M,41.825,5019000,44,390,US,Babbitt,Minnesota,224,109,2026-08-01
+225,caro shull,F,41.875,5025000,52,241,US,Duluth,Minnesota,225,116,2026-08-01
+226,andy clements,M,41.9,5028000,42,102,US,Afton,Minnesota,226,110,2026-08-01
+227,kate rising,F,41.95,5034000,29,205,US,St Paul,Minnesota,227,117,2026-08-01
+228,elanor peacock,F,42.075,5049000,16,376,US,Washburn,Wisconsin,228,118,2026-08-01
+229,jill miller,F,42.083333333333336,5050000,36,356,US,Minneapolis,Minnesota,229,119,2026-08-01
+230,bryan lau,M,42.141666666666666,5057000,52,414,US,Mosinee,Wisconsin,230,111,2026-08-01
+231,jamie mcmillin,F,42.141666666666666,5057000,52,394,US,Sun Prairie,Wisconsin,231,120,2026-08-01
+232,todd rogers,M,42.19166666666667,5063000,67,411,US,Minneapolis,Minnesota,232,112,2026-08-01
+233,kyle kolquist,M,42.233333333333334,5068000,47,255,US,Duluth,Minnesota,233,113,2026-08-01
+234,kevin carroll,M,42.25833333333333,5071000,72,348,US,Rosemount,Minnesota,234,114,2026-08-01
+235,melis arik,F,42.56666666666667,5108000,62,259,US,Washburn,Wisconsin,235,121,2026-08-01
+236,barbara gomez,F,42.583333333333336,5110000,66,133,US,Baldwinsville,New York,236,122,2026-08-01
+237,stephanie a liebhart,F,42.65,5118000,40,186,US,Minneapolis,Minnesota,237,123,2026-08-01
+238,stephen schaak,M,42.75833333333333,5131000,62,267,US,Madison,Wisconsin,238,115,2026-08-01
+239,scott armstrong,M,42.85,5142000,62,425,US,Minneapolis,Minnesota,239,116,2026-08-01
+240,steven mohs,M,42.94166666666667,5153000,48,68,US,La Crosse,Wisconsin,240,117,2026-08-01
+241,catherine tri,F,42.975,5157000,63,403,US,Inver Grove Heights,Minnesota,241,124,2026-08-01
+242,william beuthin,M,43.05833333333333,5167000,49,350,US,MAZOMANIE,Wisconsin,242,118,2026-08-01
+243,timothy van atta,M,43.108333333333334,5173000,62,174,US,La Crescent,Minnesota,243,119,2026-08-01
+244,christine nehring,F,43.225,5187000,57,391,US,Kimball,Minnesota,244,125,2026-08-01
+245,amy woolsey,F,43.233333333333334,5188000,60,239,US,FOLEY,Minnesota,245,126,2026-08-01
+246,bob mckenzie,M,43.233333333333334,5188000,54,359,US,Stillwater,Minnesota,246,120,2026-08-01
+247,katherine bland,F,43.28333333333333,5194000,39,405,US,Madison,Wisconsin,247,127,2026-08-01
+248,leigha demaertelaere,F,43.358333333333334,5203000,14,260,US,New Lenox,Illinois,248,128,2026-08-01
+249,laura robinson perez,F,43.525,5223000,64,354,US,White Bear Lake,Minnesota,249,129,2026-08-01
+250,erik riker-coleman,M,43.61666666666667,5234000,53,46,US,Duluth,Minnesota,250,121,2026-08-01
+251,liz somers,F,43.65,5238000,26,355,US,St. Louis Park,Minnesota,251,130,2026-08-01
+252,joseph niesen,M,43.775,5253000,30,288,US,Milwaukee,Wisconsin,252,122,2026-08-01
+253,wendy watson,F,43.791666666666664,5255000,73,257,US,Brookfield,Wisconsin,253,131,2026-08-01
+254,lily kramer,F,43.791666666666664,5255000,37,234,US,Verona,Wisconsin,254,132,2026-08-01
+255,susan hjort,F,43.81666666666667,5258000,57,387,US,Duluth,Minnesota,255,133,2026-08-01
+256,allen ondrachek,M,43.958333333333336,5275000,39,262,US,Minneapolis,Minnesota,256,123,2026-08-01
+257,mark schluesche,M,43.983333333333334,5278000,55,254,US,Sun Prairie,Wisconsin,257,124,2026-08-01
+258,amy kostrzewa,F,44.06666666666667,5288000,65,244,US,Brighton,Michigan,258,134,2026-08-01
+259,conrad hjort,M,44.075,5289000,58,388,US,Duluth,Minnesota,259,125,2026-08-01
+260,colin stemper,M,44.275,5313000,37,294,US,Falcon Heights,Minnesota,260,126,2026-08-01
+261,jay tapper,M,44.28333333333333,5314000,72,275,US,Duluth,Minnesota,261,127,2026-08-01
+262,timothy robertson,M,44.34166666666667,5321000,74,276,US,Eau Claire,Wisconsin,262,128,2026-08-01
+263,lynne wiitala,F,44.43333333333333,5332000,65,227,US,Tofte,Minnesota,263,135,2026-08-01
+264,greg seidel,M,44.516666666666666,5342000,51,42,US,Lakeville,Minnesota,264,129,2026-08-01
+265,melody bates,F,44.525,5343000,47,253,US,Saint Paul,Minnesota,265,136,2026-08-01
+266,stephanie checkley,F,44.69166666666667,5363000,41,55,US,Lake elmo,Minnesota,266,137,2026-08-01
+267,ben robertson,M,44.708333333333336,5365000,51,338,US,BRAINERD,Minnesota,267,130,2026-08-01
+268,sarah taylor,F,45.125,5415000,43,269,US,Durham,North Carolina,268,138,2026-08-01
+269,emily derosa,F,45.175,5421000,37,165,US,Oakdale,Minnesota,269,139,2026-08-01
+270,suzanne brown,F,45.475,5457000,58,242,US,Cane Ridge,Tennessee,270,140,2026-08-01
+271,stephanie weiland,F,45.55,5466000,34,191,US,Niles,Illinois,271,141,2026-08-01
+272,leslie williams,F,45.55,5466000,58,362,US,St Paul,Minnesota,272,142,2026-08-01
+273,ken roth,M,45.68333333333333,5482000,66,317,US,Brighton,Michigan,273,131,2026-08-01
+274,sara banner,F,45.75833333333333,5491000,49,152,US,Shawnee,Kansas,274,143,2026-08-01
+275,sylvia o'brien,F,45.875,5505000,70,252,US,La Crosse,Wisconsin,275,144,2026-08-01
+276,jim emil,M,45.875,5505000,69,326,US,Coon Rapids,Minnesota,276,132,2026-08-01
+277,jayne wanless,F,46.06666666666667,5528000,53,116,US,Sun Prairie,Wisconsin,277,145,2026-08-01
+278,mary szondy,F,46.166666666666664,5540000,58,95,US,St. Paul,Minnesota,278,146,2026-08-01
+279,charles hasbrook,M,46.24166666666667,5549000,76,374,US,Indianapolis,Indiana,279,133,2026-08-01
+280,thomas soltis,M,46.266666666666666,5552000,68,266,US,Hurley,Wisconsin,280,134,2026-08-01
+281,katherine colburn,F,46.333333333333336,5560000,35,197,US,St Francis,Wisconsin,281,147,2026-08-01
+282,ralph peterson,M,46.53333333333333,5584000,77,215,US,Hastings,Minnesota,282,135,2026-08-01
+283,katie simonsen,F,46.733333333333334,5608000,52,210,US,Harshaw,Wisconsin,283,148,2026-08-01
+284,david wanta,M,46.833333333333336,5620000,57,86,US,Custer,Wisconsin,284,136,2026-08-01
+285,fanika simic,F,46.975,5637000,63,180,CA,Thunder Bay,Ontario,285,149,2026-08-01
+286,ranndi fritchen,F,47.03333333333333,5644000,37,346,US,Pineville,North Carolina,286,150,2026-08-01
+287,lisa larson,F,47.141666666666666,5657000,57,247,US,Ashland,Wisconsin,287,151,2026-08-01
+288,carol osterhus,F,47.291666666666664,5675000,57,187,US,Minnetonka,Minnesota,288,152,2026-08-01
+289,kristen henslin,F,47.44166666666667,5693000,45,301,US,Wisconsin Rapids,Wisconsin,289,153,2026-08-01
+290,tom amundson,M,47.46666666666667,5696000,75,258,US,Minneapolis,Minnesota,290,137,2026-08-01
+291,james gallagher,M,47.63333333333333,5716000,55,412,US,Cross Plains,Wisconsin,291,138,2026-08-01
+292,emily reineccius,F,47.708333333333336,5725000,37,280,US,Lakeville,Minnesota,292,154,2026-08-01
+293,renee saamanen,F,47.875,5745000,50,343,US,Duluth,Minnesota,293,155,2026-08-01
+294,julie carpenter,F,47.93333333333333,5752000,44,381,US,Cedarburg,Wisconsin,294,156,2026-08-01
+295,anna lutz,F,47.975,5757000,49,315,US,Madison,Wisconsin,295,157,2026-08-01
+296,brittney pratt,F,48.075,5769000,18,170,US,Washburn,Wisconsin,296,158,2026-08-01
+297,andrew jennings,M,48.083333333333336,5770000,56,321,US,Wisconsin Rapids,Wisconsin,297,139,2026-08-01
+298,william carpenter,M,48.11666666666667,5774000,45,270,US,Cedarburg,Wisconsin,298,140,2026-08-01
+299,davia christiansen,F,48.275,5793000,45,193,US,Burnsville,Minnesota,299,159,2026-08-01
+300,pat leeds,F,48.56666666666667,5828000,62,421,US,Pewaukee,Wisconsin,300,160,2026-08-01
+301,kathy cieslak,F,49.0,5880000,67,305,US,Rochester,Minnesota,301,161,2026-08-01
+302,aurise stachovak,F,49.15,5898000,52,333,US,Manitowoc,Wisconsin,302,162,2026-08-01
+303,robin hutcheson,F,49.266666666666666,5912000,55,360,US,Minneapolis,Minnesota,303,163,2026-08-01
+304,matthew nelson,M,49.375,5925000,56,245,US,Minneapolis,Minnesota,304,141,2026-08-01
+305,viet-hanh winchell,F,49.53333333333333,5944000,43,396,US,Stillwater,Minnesota,305,164,2026-08-01
+306,angie chilton,F,49.90833333333333,5989000,53,399,US,Urbandale,Iowa,306,165,2026-08-01
+307,jacob bach,M,50.025,6003000,34,349,US,Milwaukee,Wisconsin,307,142,2026-08-01
+308,julie kerr-nicholson,F,50.2,6024000,56,256,US,muskego,Wisconsin,308,166,2026-08-01
+309,mary jo driscoll,F,50.225,6027000,59,297,US,Bayside,Wisconsin,309,167,2026-08-01
+310,kendall king,F,50.38333333333333,6046000,57,314,US,Minneapolis,Minnesota,310,168,2026-08-01
+311,rob czypinski,M,50.55,6066000,56,164,US,Bayfield,Wisconsin,311,143,2026-08-01
+312,leah eddinger,F,50.608333333333334,6073000,24,224,US,Minneapolis,Minnesota,312,169,2026-08-01
+313,matthew evans,M,51.108333333333334,6133000,52,290,US,St Paul,Minnesota,313,144,2026-08-01
+314,joseph fering,M,51.416666666666664,6170000,55,373,US,Blue Earth,Minnesota,314,145,2026-08-01
+315,cathleen mcginnity,F,52.208333333333336,6265000,60,298,US,Luck,Wisconsin,315,170,2026-08-01
+316,amy decker,F,52.40833333333333,6289000,47,372,US,Columbia,Missouri,316,171,2026-08-01
+317,tracy lord,F,53.575,6429000,54,364,US,Chicago,Illinois,317,172,2026-08-01
+318,mary corbett,F,53.7,6444000,65,332,US,Centennial,Colorado,318,173,2026-08-01
+319,gray williams,M,53.84166666666667,6461000,79,395,US,Madison,Wisconsin,319,146,2026-08-01
+320,john radler,M,53.858333333333334,6463000,65,413,US,Hartland,Wisconsin,320,147,2026-08-01
+321,meredith heneghan,F,54.025,6483000,32,204,US,St Paul,Minnesota,321,174,2026-08-01
+322,mary sue hannan,F,54.075,6489000,66,384,US,Minneapolis,Minnesota,322,175,2026-08-01
+323,joseph walters,M,54.075,6489000,75,369,US,Norman,Oklahoma,323,148,2026-08-01
+324,chris boppre,M,54.15,6498000,44,344,US,Minneapolis,Minnesota,324,149,2026-08-01
+325,david kittleson,M,54.68333333333333,6562000,66,307,US,White Bear Lake,Minnesota,325,150,2026-08-01
+326,marisa provencher,F,54.81666666666667,6578000,49,379,US,Brownton,Minnesota,326,176,2026-08-01
+327,pam ogden,F,54.833333333333336,6580000,69,319,US,Eau Claire,Wisconsin,327,177,2026-08-01
+328,karen janssen,F,54.958333333333336,6595000,36,322,US,richmond,Minnesota,328,178,2026-08-01
+329,steve byrd,M,55.65833333333333,6679000,72,370,US,Shell Lake,Wisconsin,329,151,2026-08-01
+330,rachel niesen,F,55.69166666666667,6683000,32,357,US,Madison,Wisconsin,330,179,2026-08-01
+331,margaret wildberger,F,56.1,6732000,32,371,US,Minneapolis,Minnesota,331,180,2026-08-01
+332,nathan jackson,M,56.44166666666667,6773000,48,209,US,Eau Claire,Wisconsin,332,152,2026-08-01
+333,tom undine,M,57.016666666666666,6842000,44,112,US,Washburn,Wisconsin,333,153,2026-08-01
+334,erick brunsvold,M,57.21666666666667,6866000,57,382,US,Tofte,Minnesota,334,154,2026-08-01
+335,lee steigerwaldt,F,58.4,7008000,49,281,US,Tomahawk,Wisconsin,335,181,2026-08-01
+336,corinne larson,F,58.666666666666664,7040000,42,375,US,Lakeville,Minnesota,336,182,2026-08-01
+337,andrew smoley,M,59.43333333333333,7132000,60,402,US,Minneapolis,Minnesota,337,155,2026-08-01
+338,linda hagen,F,60.475,7257000,63,400,US,Duluth,Minnesota,338,183,2026-08-01
+339,christopher kapsner,M,61.083333333333336,7330000,63,168,US,Boyceville,Wisconsin,339,156,2026-08-01
+340,beth abing,F,61.233333333333334,7348000,39,377,US,Eau Claire,Wisconsin,340,184,2026-08-01
+341,emily rose davis,F,62.45,7494000,39,310,US,Fox River Grove,Illinois,341,185,2026-08-01
+342,eric fast,M,62.7,7524000,55,586,US,Roseville,Minnesota,342,157,2026-08-01
+343,kit rittman,F,62.958333333333336,7555000,68,392,US,"Madison, wi",Wisconsin,343,186,2026-08-01
+344,scott rusch,M,63.125,7575000,50,501,US,Waupaca,Wisconsin,344,158,2026-08-01
+345,charlie sanders,M,65.175,7821000,75,404,US,Middleton,Wisconsin,345,159,2026-08-01
+346,anna tietgen,F,68.11666666666666,8174000,35,361,US,Milwaukee,Wisconsin,346,187,2026-08-01
+347,shannon nelson,F,69.03333333333333,8284000,69,287,US,St Paul,Minnesota,347,188,2026-08-01
+348,kevin mcclain,M,69.55,8346000,52,221,US,Cumberland,Wisconsin,348,160,2026-08-01
+349,martha bigelow,F,74.00833333333334,8881000,60,380,US,St Louis Park,Minnesota,349,189,2026-08-01
+350,sheri schrock,F,76.59166666666667,9191000,71,311,US,Cohasset,Minnesota,350,190,2026-08-01
+228,ashley maas,F,42.125,5055000,40,407,US,Sturgeon Bay,Wisconsin,228,118,2026-08-01
